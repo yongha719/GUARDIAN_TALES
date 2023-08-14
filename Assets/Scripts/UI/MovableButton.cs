@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public enum MoveDirType
 {
@@ -14,43 +15,49 @@ public enum MoveDirType
     LeftUp
 }
 
-public class MovableButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MovableButton : MonoBehaviour,IPointerClickHandler, IPointerUpHandler, IPointerMoveHandler, IPointerExitHandler
 {
     public MoveDirType MoveDirType;
 
+    [field: SerializeField]
     public bool IsPress { get; private set; }
 
     public event Action OnPointEnterAction = () => { };
 
-    [SerializeField]
-    private Vector2 moveDirection;
+    public event Action OnClick = () => { };
 
-    [Tooltip("민감도")]
-    public float sensitivity = 3f;
+    [HideInInspector]
+    public PlayerUI PlayerUI;
 
-    public void OnPointerEnter(PointerEventData eventData)
+
+    public void OnPointerClick(PointerEventData eventData)
     {
-        print(MoveDirType);
-
-
-        IsPress = true;
-
-        OnPointEnterAction();
+        OnClick();
+        print($"{name} : Click");
     }
 
+    public void OnPointerMove(PointerEventData eventData)
+    {
+        print($"{name} : Move"); 
+        PlayerUI.anyButtonPressed = IsPress = true;
+        PlayerUI.MovableButton = this;
+    }
 
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        print($"{name} : Up");
+        
+        PlayerUI.anyButtonPressed = IsPress = false;
+    }
+    
     public void OnPointerExit(PointerEventData eventData)
     {
-        IsPress = false;
+        PlayerUI.anyButtonPressed = IsPress = false;
     }
 
-    private void FixedUpdate()
+    public void CalculateMovementValues(out float h, out float v)
     {
-        if (IsPress == false)
-            return;
-
-        var h = 0f;
-        var v = 0f;
+        h = v = 0f;
 
         switch (MoveDirType)
         {
@@ -74,28 +81,14 @@ public class MovableButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 v = h = -1f;
                 break;
             case MoveDirType.Left:
-                v = -1f;
+                h = -1f;
                 break;
             case MoveDirType.LeftUp:
                 v = 1f;
                 h = -1f;
                 break;
         }
-
-        moveDirection = SmoothInput(h, v);
     }
 
 
-    private Vector2 SmoothInput(float targetH, float targetV)
-    {
-        var deadZone = 0.001f;
-        var smoothDelta = sensitivity * Time.deltaTime;
-
-        moveDirection.x = Mathf.MoveTowards(moveDirection.x, targetH, smoothDelta);
-        moveDirection.y = Mathf.MoveTowards(moveDirection.y, targetV, smoothDelta);
-
-        return new Vector2(
-            Mathf.Abs(moveDirection.x) < deadZone ? 0f : moveDirection.x,
-            Mathf.Abs(moveDirection.y) < deadZone ? 0f : moveDirection.y);
-    }
 }
