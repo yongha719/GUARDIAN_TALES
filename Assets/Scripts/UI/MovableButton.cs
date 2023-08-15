@@ -26,8 +26,8 @@ public class MovableButton : MonoBehaviour,IPointerClickHandler, IPointerUpHandl
 
     public event Action OnClick = () => { };
 
-    [HideInInspector]
-    public PlayerUI PlayerUI;
+    [SerializeField]
+    private PlayerUIManager playerUIManager;
 
 
     public void OnPointerClick(PointerEventData eventData)
@@ -39,20 +39,20 @@ public class MovableButton : MonoBehaviour,IPointerClickHandler, IPointerUpHandl
     public void OnPointerMove(PointerEventData eventData)
     {
         print($"{name} : Move"); 
-        PlayerUI.anyButtonPressed = IsPress = true;
-        PlayerUI.MovableButton = this;
+        playerUIManager.anyButtonPressed = IsPress = true;
+        playerUIManager.MovableButton = this;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         print($"{name} : Up");
         
-        PlayerUI.anyButtonPressed = IsPress = false;
+        playerUIManager.anyButtonPressed = IsPress = false;
     }
     
     public void OnPointerExit(PointerEventData eventData)
     {
-        PlayerUI.anyButtonPressed = IsPress = false;
+        playerUIManager.anyButtonPressed = IsPress = false;
     }
 
     public void CalculateMovementValues(out float h, out float v)
@@ -89,6 +89,4 @@ public class MovableButton : MonoBehaviour,IPointerClickHandler, IPointerUpHandl
                 break;
         }
     }
-
-
 }

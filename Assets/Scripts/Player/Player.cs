@@ -1,15 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class Player : MonoBehaviour
 {
-    public float Speed;
+    public PlayerData PlayerData;
+
+    private void Start()
+    {
+        PlayerData = GameManager.Instance.PlayerData;
+    }
 
     void FixedUpdate()
     {
-        transform.Translate(PlayerUI.moveDirection * (Speed * Time.deltaTime));
+        // Move
+        transform.Translate(PlayerUIManager.MoveDirection * (PlayerData.Speed.Value * Time.deltaTime));
+
+        // Attack
+    }
+
+
+    private void OnDrawGizmos()
+    {
     }
 }
