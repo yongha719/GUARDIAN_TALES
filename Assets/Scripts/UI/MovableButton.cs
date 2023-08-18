@@ -41,7 +41,6 @@ public class MovableButton : MyButton
     public override void OnPointerMove(PointerEventData eventData)
     {
         base.OnPointerMove(eventData);
-        print($"{name} : Move");
     }
 
     public override void OnPointerExit(PointerEventData eventData)

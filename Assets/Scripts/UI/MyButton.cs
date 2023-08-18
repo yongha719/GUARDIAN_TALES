@@ -28,7 +28,7 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public bool IsSelected
     {
         get => isSelected;
-        set { IsSelected = value; }
+        set { isSelected = value; }
     }
 
     [SerializeField]
