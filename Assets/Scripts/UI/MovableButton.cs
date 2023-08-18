@@ -15,44 +15,40 @@ public enum MoveDirType
     LeftUp
 }
 
-public class MovableButton : MonoBehaviour,IPointerClickHandler, IPointerUpHandler, IPointerMoveHandler, IPointerExitHandler
+public class MovableButton : MyButton
 {
+    [Space]
     public MoveDirType MoveDirType;
-
-    [field: SerializeField]
-    public bool IsPress { get; private set; }
-
-    public event Action OnPointEnterAction = () => { };
-
-    public event Action OnClick = () => { };
 
     [SerializeField]
     private PlayerUIManager playerUIManager;
 
 
-    public void OnPointerClick(PointerEventData eventData)
+    public override void OnPointerDown(PointerEventData eventData)
     {
-        OnClick();
+        base.OnPointerDown(eventData);
         print($"{name} : Click");
     }
-
-    public void OnPointerMove(PointerEventData eventData)
-    {
-        print($"{name} : Move"); 
-        playerUIManager.anyButtonPressed = IsPress = true;
-        playerUIManager.MovableButton = this;
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        print($"{name} : Up");
-        
-        playerUIManager.anyButtonPressed = IsPress = false;
-    }
     
-    public void OnPointerExit(PointerEventData eventData)
+    public override void OnPointerUp(PointerEventData eventData)
     {
-        playerUIManager.anyButtonPressed = IsPress = false;
+        base.OnPointerUp(eventData);
+        print($"{name} : Up");
+
+        playerUIManager.AnyButtonPressed = false;
+    }
+
+    public override void OnPointerMove(PointerEventData eventData)
+    {
+        base.OnPointerMove(eventData);
+        print($"{name} : Move");
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        base.OnPointerExit(eventData);
+        print("OnPointerExit");
+        // playerUIManager.AnyButtonPressed = IsPress = false;
     }
 
     public void CalculateMovementValues(out float h, out float v)

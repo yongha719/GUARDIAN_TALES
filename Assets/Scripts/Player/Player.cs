@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public PlayerData PlayerData;
+    [SerializeField]
+    private PlayerData PlayerData;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         // Move
-        transform.Translate(PlayerUIManager.MoveDirection * (PlayerData.Speed.Value * Time.deltaTime));
+        transform.Translate(PlayerUIManager.MoveDirection.normalized * (PlayerData.Speed.Value * Time.deltaTime));
 
         // Attack
     }

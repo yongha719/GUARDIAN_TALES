@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public PlayerData PlayerData;
-
     protected override bool DontDestroy => true;
+
+    public PlayerData PlayerData;
 
     protected override void Awake()
     {
+        base.Awake();
+        
         PlayerData.Init();
     }
 }

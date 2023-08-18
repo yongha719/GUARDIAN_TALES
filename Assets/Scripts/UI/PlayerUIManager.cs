@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerUIManager : MonoBehaviour
@@ -9,31 +10,56 @@ public class PlayerUIManager : MonoBehaviour
     [Header("이동 버튼")]
     public List<MovableButton> MovableButtons = new(8);
 
-    [SerializeField,Tooltip("현재 눌린 이동 버튼")]
+    [SerializeField, Tooltip("현재 눌린 이동 버튼")]
     private MovableButton curMovableButton;
-    
-    public bool anyButtonPressed;
-    
-    [Space]
-    [Tooltip("달리기 / 상호작용 버튼")]
-    public Button RunAndInteractionButton;
 
-    public static Vector2 MoveDirection;
+    [Tooltip("눌린 이동 버튼이 있는지 체크")]
+    public bool AnyButtonPressed;
 
     [Header("민감도"), Tooltip("민감도")]
     public float sensitivity = 3f;
 
+    public static Vector2 MoveDirection;
+
+    private PlayerData playerData;
+
+    [Space]
+    [Tooltip("달리기 / 상호작용 버튼")]
+    public IRunAndInteractionButton RunAndInteractionButton;
 
 
-    public MovableButton MovableButton
+    public MovableButton CurMovableButton
     {
-        set => curMovableButton = value;
+        set
+        {
+            if (curMovableButton != null)
+                curMovableButton.IsSelected = false;
+
+            curMovableButton = value;
+            curMovableButton.IsSelected = true;
+        }
     }
 
+    private void Start()
+    {
+        RunAndInteractionButton = FindObjectOfType<RunAndInteractionButton>();
+
+        playerData = GameManager.Instance.PlayerData;
+        
+        foreach (var movableButton in MovableButtons)
+        {
+            var buttonCopy = movableButton; // 클로저 변수 복사
+            buttonCopy.OnMouseDown += () =>
+            {
+                CurMovableButton = buttonCopy;
+                AnyButtonPressed = true;
+            };
+        }
+    }
 
     private void FixedUpdate()
     {
-        if (anyButtonPressed == false)
+        if (AnyButtonPressed == false)
         {
             MoveDirection = Vector2.zero;
             return;
@@ -42,6 +68,8 @@ public class PlayerUIManager : MonoBehaviour
         curMovableButton.CalculateMovementValues(out float h, out float v);
 
         MoveDirection = SmoothInput(h, v);
+
+        playerData.MoveDirection = MoveDirection;
     }
 
     private Vector2 SmoothInput(float targetH, float targetV)

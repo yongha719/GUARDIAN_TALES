@@ -5,13 +5,17 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/PlayerData")]
 public class PlayerData : ScriptableObject
 {
+    public Player Player;
+
+    public Vector2 MoveDirection;
+    
     public Data<int> Hp;
 
-    public Data<int> Speed = new();
+    public Data<int> Speed = new Data<int>();
 
-    public Data<int> AttackDamage = new();
+    public Data<int> AttackDamage = new Data<int>();
 
-    public Data<int> Armor;
+    public Data<int> Armor = new Data<int>();
 
     [field: SerializeField, Tooltip("크리티컬 확률")]
     public int CriticalChance { get; set; }
@@ -37,9 +41,9 @@ public class PlayerData : ScriptableObject
 
     public void Init()
     {
-        Hp = new(hp => Hp.Value /= 100 / (100 + Armor.Value));
+        Player = FindObjectOfType<Player>();
 
-        Armor = new(onArmorChange);
+        Hp = new Data<int>(onHpChange);
     }
 
     private void onHpChange(int hp)
@@ -47,7 +51,4 @@ public class PlayerData : ScriptableObject
         Hp.Value /= (100 + Armor.Value) / 100;
     }
 
-    private void onArmorChange(int armor)
-    {
-    }
 }
