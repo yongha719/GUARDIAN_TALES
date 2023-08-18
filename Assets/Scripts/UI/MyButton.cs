@@ -13,14 +13,12 @@ public enum MyButtonState
 }
 
 public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler,
-    IPointerMoveHandler,
-    IPointerExitHandler
+    IPointerMoveHandler, IPointerExitHandler
 {
     [Header("버튼 상태")]
     public bool Interactable = true;
 
     public bool IsPress => isPointerDown;
-
 
     [SerializeField]
     private bool isSelected;
@@ -45,7 +43,12 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public ColorBlock ColorBlock;
 
     public event Action OnMouseDown = () => { };
+
     public event Action OnMouseUp = () => { };
+    
+    public event Action OnMouseEnter = () => { };
+    
+    public event Action OnMouseExit = () => { };
 
 
     protected MyButtonState currentMyButtonState
@@ -54,8 +57,6 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         {
             if (Interactable == false)
                 return MyButtonState.Disabled;
-            if (isPointerDown)
-                return MyButtonState.Pressed;
             if (IsSelected)
                 return MyButtonState.Selected;
             if (isPointerInside)
@@ -114,6 +115,8 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
         isPointerInside = true;
+
+        OnMouseEnter();
         UpdateImageColorByButtonState();
     }
 
@@ -124,6 +127,8 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public virtual void OnPointerExit(PointerEventData eventData)
     {
         isPointerInside = false;
+
+        OnMouseExit();
         UpdateImageColorByButtonState();
     }
 }
