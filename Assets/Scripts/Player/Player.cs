@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         // Move
-        transform.Translate(playerData.MoveDirection.normalized * (playerData.Speed.Value * Time.deltaTime));
+        transform.Translate(InputManager.Instance.Dir * (playerData.Speed.Value * Time.deltaTime));
 
         // Attack
     }
