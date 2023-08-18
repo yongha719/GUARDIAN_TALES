@@ -28,7 +28,11 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public bool IsSelected
     {
         get => isSelected;
-        set { isSelected = value; }
+        set
+        {
+            isSelected = value;
+            UpdateImageColorByButtonState();
+        }
     }
 
     [SerializeField]

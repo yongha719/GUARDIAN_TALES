@@ -2,28 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private PlayerData PlayerData;
+    private PlayerData playerData;
 
     private void Start()
     {
-        PlayerData = GameManager.Instance.PlayerData;
+        playerData = GameManager.Instance.PlayerData;
     }
 
     void FixedUpdate()
     {
         // Move
-        transform.Translate(PlayerUIManager.MoveDirection.normalized * (PlayerData.Speed.Value * Time.deltaTime));
+        transform.Translate(playerData.MoveDirection.normalized * (playerData.Speed.Value * Time.deltaTime));
 
         // Attack
     }
 
-
-    private void OnDrawGizmos()
+    void Attack()
     {
+        
     }
 }

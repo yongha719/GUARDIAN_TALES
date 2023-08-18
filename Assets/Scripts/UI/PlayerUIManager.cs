@@ -19,7 +19,7 @@ public class PlayerUIManager : MonoBehaviour
     [Header("민감도"), Tooltip("민감도")]
     public float sensitivity = 3f;
 
-    public static Vector2 MoveDirection;
+    private Vector2 MoveDirection;
 
     private PlayerData playerData;
 
@@ -33,9 +33,13 @@ public class PlayerUIManager : MonoBehaviour
         set
         {
             if (curMovableButton != null)
+            {
+                print(curMovableButton.name + ": false");
                 curMovableButton.IsSelected = false;
+            }
 
             curMovableButton = value;
+            print(curMovableButton.name + ": true");
             curMovableButton.IsSelected = true;
         }
     }
@@ -45,14 +49,20 @@ public class PlayerUIManager : MonoBehaviour
         RunAndInteractionButton = FindObjectOfType<RunAndInteractionButton>();
 
         playerData = GameManager.Instance.PlayerData;
-        
+
         foreach (var movableButton in MovableButtons)
         {
             var buttonCopy = movableButton; // 클로저 변수 복사
             buttonCopy.OnMouseDown += () =>
             {
+                print(buttonCopy.name);
                 CurMovableButton = buttonCopy;
                 AnyButtonPressed = true;
+            };
+
+            buttonCopy.OnMouseUp += () =>
+            {
+                AnyButtonPressed = false;
             };
         }
     }
