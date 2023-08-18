@@ -41,8 +41,8 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public ColorBlock ColorBlock;
 
     public event Action OnMouseDown = () => { };
-    public event Action OnMouseUp= () => { };
-    
+    public event Action OnMouseUp = () => { };
+
 
     protected MyButtonState currentMyButtonState
     {
