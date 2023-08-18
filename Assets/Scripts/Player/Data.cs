@@ -20,7 +20,7 @@ public class Data<T>
         {
             this.value = value;
 
-            OnChange(value);
+            OnChange(this.value);
         }
     }
     
@@ -31,14 +31,14 @@ public class Data<T>
         value = _value;
     }
     
-    public Data(Action<T> onChange)
+    public Data(Action<T> _onChange)
     {
-        OnChange += onChange;
+        OnChange += _onChange;
     }
 
-    public Data(T _value, Action<T> onChange)
+    public Data(T _value, Action<T> _onChange)
     {
         value = _value;
-        OnChange += onChange;
+        OnChange += _onChange;
     }
 }

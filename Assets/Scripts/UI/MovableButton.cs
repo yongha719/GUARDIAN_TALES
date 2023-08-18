@@ -24,6 +24,13 @@ public class MovableButton : MyButton
     [Space]
     public MoveDirType MoveDirType;
 
+    protected override void Start()
+    {
+        base.Start();
+        
+        InputManager.Instance.PushMovableButton(this);
+    }
+    
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);

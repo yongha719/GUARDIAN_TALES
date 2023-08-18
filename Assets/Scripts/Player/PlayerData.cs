@@ -7,8 +7,6 @@ public class PlayerData : ScriptableObject
 {
     public Player Player;
 
-    public Vector2 MoveDirection;
-    
     public Data<int> Hp;
 
     public Data<int> Speed = new Data<int>();
@@ -43,12 +41,9 @@ public class PlayerData : ScriptableObject
     {
         Player = FindObjectOfType<Player>();
 
-        Hp = new Data<int>(onHpChange);
+        Hp = new Data<int>((hp) =>
+        {
+            Hp.Value = (int)(Hp.Value * (100f / (100 + Armor.Value)));
+        });
     }
-
-    private void onHpChange(int hp)
-    {
-        Hp.Value /= (100 + Armor.Value) / 100;
-    }
-
 }
