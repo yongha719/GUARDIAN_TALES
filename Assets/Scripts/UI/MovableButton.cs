@@ -23,13 +23,19 @@ public class MovableButton : MyButton
     [SerializeField]
     private PlayerUIManager playerUIManager;
 
+    protected override void Start()
+    {
+        base.Start();
+
+        InputManager.Instance.PushMovableButton(this);
+    }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);
         print($"{name} : Click");
     }
-    
+
     public override void OnPointerUp(PointerEventData eventData)
     {
         base.OnPointerUp(eventData);
