@@ -131,4 +131,18 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         OnMouseExit();
         UpdateImageColorByButtonState();
     }
+
+    private void Reset()
+    {
+        Interactable = true;
+        
+        ColorBlock = new ColorBlock
+        {
+            normalColor = Color.white,
+            highlightedColor = new Color(0.9608f, 1, 0.7333f),
+            pressedColor = new Color(0.6588f, 0.6588f, 0.6588f),
+            selectedColor = new Color(1, 0.5911f, 0.5911f),
+            disabledColor = new Color(0.3f, 0.3f, 0.3f)
+        };
+    }
 }

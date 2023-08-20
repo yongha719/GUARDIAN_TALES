@@ -66,7 +66,6 @@ public class InputManager : Singleton<InputManager>
 
     // 버튼을 listen해서 dir을 수정하도록
     // 플레이어에서는 Dir을 참조해서 사용하도록
-
     private void Update()
     {
         if (AnyButtonPressed == false)
