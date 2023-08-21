@@ -6,7 +6,8 @@ public class Marina : Player
 {
     private CapsuleCollider2D circleCollider;
 
-    public override float attackDelay => 0.7f;
+    
+    public override float AttackDelay => 0.7f;
 
     protected override void Start()
     {

@@ -7,6 +7,7 @@ public class InputManager : Singleton<InputManager>
 {
     [SerializeField, Tooltip("플레이어 이동 방향")]
     private Vector2 dir;
+
     public Vector2 Dir
     {
         get
@@ -44,6 +45,8 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
+    public MoveDirType PlayerMoveDirType { get; private set; }
+
     [Tooltip("눌린 이동 버튼이 있는지 체크")]
     public bool AnyButtonPressed;
 
@@ -53,6 +56,7 @@ public class InputManager : Singleton<InputManager>
         {
             AnyButtonPressed = true;
             CurMovableButton = button;
+            PlayerMoveDirType = button.MoveDirType;
         };
 
         button.OnMouseExit += () =>

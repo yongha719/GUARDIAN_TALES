@@ -15,7 +15,6 @@ public class Weapon : MonoBehaviour
 {
     private PlayerData playerData;
 
-
     private string attackTriggerName = "Attack";
     private string attackPatternCountName = "AttackPatternCount";
     
@@ -25,6 +24,7 @@ public class Weapon : MonoBehaviour
     
     protected virtual void Start()
     {
+        // Test
         playerData = GameManager.Instance.PlayerData;
         playerData.PlayerWeapon = this;
 
@@ -36,8 +36,6 @@ public class Weapon : MonoBehaviour
         playerData = _playerData;
     }
 
-    
-    
     /// <summary>
     /// 플레이어 스크립트에서 공격할 때 사용할 함수
     /// </summary>

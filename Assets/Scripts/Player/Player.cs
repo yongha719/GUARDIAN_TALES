@@ -14,15 +14,16 @@ public abstract class Player : MonoBehaviour
     [Tooltip("몇번째 공격인지 나타냄")]
     protected int attackPatternCount = 1;
 
-    [Tooltip("공격 딜레이")]
-    public virtual float attackDelay { get; }
 
-    [field: SerializeField, Tooltip("마지막으로 공격한 시간")]
+    [field: SerializeField, Tooltip("공격 딜레이")]
+    public virtual float AttackDelay { get; protected set; }
+
+    [Tooltip("마지막으로 공격한 시간")]
     protected virtual float lastAttackTime { get; set; }
 
-    
+
     protected SpriteRenderer spriteRenderer;
-    
+
     protected virtual void Start()
     {
         playerData = GameManager.Instance.PlayerData;
@@ -39,7 +40,7 @@ public abstract class Player : MonoBehaviour
 
         if (dir.x < 0)
         {
-            
+            spriteRenderer.flipX = true;
         }
     }
 
@@ -54,7 +55,7 @@ public abstract class Player : MonoBehaviour
 
     protected virtual bool CanAttack()
     {
-        if (Time.time - lastAttackTime >= attackDelay)
+        if (Time.time - lastAttackTime >= AttackDelay)
         {
             // 바로 공격못하게 막음
             // 공격 애니메이션이 끝나야 쿨타임 시작
