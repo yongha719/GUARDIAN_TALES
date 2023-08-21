@@ -7,7 +7,7 @@ public class Marina : Player
     private CapsuleCollider2D circleCollider;
 
     
-    public override float AttackDelay => 0.7f;
+    public override float AttackDelay => 0.3f;
 
     protected override void Start()
     {
@@ -24,6 +24,6 @@ public class Marina : Player
     protected override void Attack()
     {
         print("공격");
-        playerData.PlayerWeapon.SetAttackAnimator(attackPatternCount);
+        playerData.PlayerWeapon.SetAttackAnimator(AttackPatternCount);
     }
 }

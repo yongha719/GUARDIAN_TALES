@@ -12,7 +12,19 @@ public abstract class Player : MonoBehaviour
     protected PlayerData playerData;
 
     [Tooltip("몇번째 공격인지 나타냄")]
-    protected int attackPatternCount = 1;
+    protected int attackPatternCount;
+
+    protected int AttackPatternCount
+    {
+        get => attackPatternCount;
+
+        set
+        {
+            attackPatternCount = value;
+            Utility.WrapValue(ref attackPatternCount, 1, 2);
+            print(attackPatternCount);
+        }
+    }
 
 
     [field: SerializeField, Tooltip("공격 딜레이")]
@@ -38,17 +50,18 @@ public abstract class Player : MonoBehaviour
 
         transform.Translate(dir * (playerData.Speed.Value * Time.deltaTime));
 
-        if (dir.x < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
+
+        bool isLeft = dir.x < 0;
+        
+        spriteRenderer.flipX = isLeft;
+        playerData.PlayerWeapon.FlipX(isLeft);
     }
 
     public void TryAttack()
     {
         if (CanAttack())
         {
-            // attackPatternCount++;
+            AttackPatternCount++;
             Attack();
         }
     }

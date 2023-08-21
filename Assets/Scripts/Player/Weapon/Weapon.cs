@@ -15,13 +15,18 @@ public class Weapon : MonoBehaviour
 {
     private PlayerData playerData;
 
+    [SerializeField]
     private string attackTriggerName = "Attack";
+
+    [SerializeField]
     private string attackPatternCountName = "AttackPatternCount";
-    
-    public event Action OnEndAttackAnimation = () => {};
-    
+
+    public event Action OnEndAttackAnimation = () =>
+    {
+    };
+
     private Animator animator;
-    
+
     protected virtual void Start()
     {
         // Test
@@ -49,7 +54,8 @@ public class Weapon : MonoBehaviour
     /// <summary>
     /// 플레이어에서 호출할 Animator Parameter 설정할 함수
     /// </summary>
-    public void SetAnimatorParameter(WeaponAnimatorParameterType parameterType, string parameterName, object value = null)
+    public void SetAnimatorParameter(WeaponAnimatorParameterType parameterType, string parameterName,
+        object value = null)
     {
         if (parameterType != WeaponAnimatorParameterType.Trigger && value == null)
             throw new NullReferenceException("SetAnimatorParameter Method : Parameter valu is Null");
@@ -67,11 +73,14 @@ public class Weapon : MonoBehaviour
                 break;
             case WeaponAnimatorParameterType.Trigger:
                 animator.SetTrigger(parameterName);
-                print("setTrigger");
                 break;
         }
     }
 
+    public void FlipX(bool isLeft)
+    {
+        transform.rotation = Quaternion.Euler(0, isLeft ? 180 : 0, 0);
+    }
 
     public void Destroy()
     {
@@ -83,8 +92,9 @@ public class Weapon : MonoBehaviour
     {
         print("무기 공격");
     }
-    
+
     #region Animator Event에서 쓸 함수들
+
     public void ResetTrigger()
     {
         animator.ResetTrigger(attackTriggerName);
@@ -95,5 +105,6 @@ public class Weapon : MonoBehaviour
         OnEndAttackAnimation();
         ResetTrigger();
     }
+
     #endregion
 }
