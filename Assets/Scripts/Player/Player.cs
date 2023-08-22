@@ -32,7 +32,12 @@ public abstract class Player : MonoBehaviour
 
     [Tooltip("마지막으로 공격한 시간")]
     protected virtual float lastAttackTime { get; set; }
+    
+    [field: SerializeField]
+    public virtual float SkillDelay { get; protected set; }
 
+    [Tooltip("마지막으로 스킬을 사용한 시간")]
+    protected virtual float lastUseSkillTime { get; set; }
 
     protected SpriteRenderer spriteRenderer;
 
@@ -78,9 +83,29 @@ public abstract class Player : MonoBehaviour
 
         return false;
     }
+    
+    public void TryUseSkill()
+    {
+        if (CanUseSkill())
+            Skill();
+    }
+
+    protected virtual bool CanUseSkill()
+    {
+        if (Time.time - lastUseSkillTime >= SkillDelay)
+        {
+            // 바로 공격못하게 막음
+            // 공격 애니메이션이 끝나야 쿨타임 시작
+            lastUseSkillTime *= 2;
+            return true;
+        }
+
+        return false;
+    }
 
     protected abstract void Attack();
 
+    protected abstract void Skill();
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {

@@ -7,7 +7,10 @@ public class PlayerUIManager : MonoBehaviour
     private IRunAndInteractionButton RunAndInteractionButton;
 
     [SerializeField]
-    private AttackButton attackButton;
+    private MyButton attackButton;
+
+    [SerializeField]
+    private MyButton skillButton;
     
     private Player player; 
     
@@ -18,5 +21,6 @@ public class PlayerUIManager : MonoBehaviour
         player = FindObjectOfType<Player>();
 
         attackButton.OnMouseEnter += player.TryAttack;
+        skillButton.OnMouseEnter += player.TryUseSkill;
     }
 }

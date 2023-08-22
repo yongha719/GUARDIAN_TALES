@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Marina : Player
 {
     private CapsuleCollider2D circleCollider;
 
-    
+    public float SkillRadius;
+
+    public GameObject SkillEffect;
+
     public override float AttackDelay => 0.3f;
 
     protected override void Start()
@@ -25,5 +29,16 @@ public class Marina : Player
     {
         print("공격");
         playerData.PlayerWeapon.SetAttackAnimator(AttackPatternCount);
+    }
+
+    protected override void Skill()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            var pos = transform.position + Random.onUnitSphere * 3;
+           
+            var effect = Instantiate(SkillEffect, pos, Quaternion.identity);
+            Destroy(effect, 2f);
+        }
     }
 }

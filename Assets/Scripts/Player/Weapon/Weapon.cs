@@ -21,6 +21,9 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private string attackPatternCountName = "AttackPatternCount";
 
+    /// <summary>
+    /// 공격 애니메이션 끝났을 때 콜백
+    /// </summary>
     public event Action OnEndAttackAnimation = () =>
     {
     };
