@@ -80,6 +80,8 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public abstract void Skill();
+
     public void FlipX(bool isLeft)
     {
         transform.rotation = Quaternion.Euler(0, isLeft ? 180 : 0, 0);

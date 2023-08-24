@@ -18,7 +18,7 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     [Header("버튼 상태")]
     public bool Interactable = true;
 
-    public bool IsPress => isPointerDown;
+    public bool IsPress => isPointerDown || isPointerInside;
 
     [SerializeField]
     private bool isSelected;
@@ -41,15 +41,16 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     [Header("Color")]
     public ColorBlock ColorBlock;
-
-    public event Action OnMouseDown = () => { };
-
-    public event Action OnMouseUp = () => { };
     
+
+    /// <summary> 포인터가 버튼 안으로 들어왔을 때 이벤트 </summary>
     public event Action OnMouseEnter = () => { };
-    
+
+    /// <summary> 포인터가 버튼 밖으로 나왔을 때 </summary>
     public event Action OnMouseExit = () => { };
 
+    /// <summary>  버튼이 눌리고 있을 때 이벤트 </summary>
+    public event Action OnPressed = () => { };
 
     protected MyButtonState currentMyButtonState
     {
@@ -96,11 +97,18 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         }
     }
 
+    protected void FixedUpdate()
+    {
+        if (IsPress)
+        {
+            OnPressed();
+        }
+    }
+
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         isPointerDown = true;
 
-        OnMouseDown();
         UpdateImageColorByButtonState();
     }
 
@@ -108,7 +116,6 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     {
         isPointerDown = false;
 
-        OnMouseUp();
         UpdateImageColorByButtonState();
     }
 
@@ -120,9 +127,7 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         UpdateImageColorByButtonState();
     }
 
-    public virtual void OnPointerMove(PointerEventData eventData)
-    {
-    }
+    public virtual void OnPointerMove(PointerEventData eventData) { }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
@@ -135,7 +140,7 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     private void Reset()
     {
         Interactable = true;
-        
+
         ColorBlock = new ColorBlock
         {
             normalColor = Color.white,

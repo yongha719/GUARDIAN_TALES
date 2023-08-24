@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public enum PlayerElementalAttribute
+public enum ElementalAttribute
 {
     Fire,
     Water,
@@ -13,25 +14,12 @@ public enum PlayerElementalAttribute
 }
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/PlayerData")]
-public class PlayerData : ScriptableObject
+public class PlayerData : EntityData
 {
     [NonSerialized]
     public Player Player;
 
     public Weapon PlayerWeapon;
-    
-    public Data<int> Hp;
-
-    public Data<int> Speed = new Data<int>();
-
-    public Data<int> AttackDamage = new Data<int>();
-
-    public Data<int> Armor = new Data<int>();
-
-    [SerializeField]
-    private PlayerElementalAttribute playerElementalAttribute;
-
-    public PlayerElementalAttribute PlayerElementalAttribute => playerElementalAttribute;
 
     [field: SerializeField, Tooltip("크리티컬 확률")]
     public int CriticalChance { get; set; }
@@ -40,7 +28,7 @@ public class PlayerData : ScriptableObject
 
     public event Action<int> OnCriticalAttack;
 
-    public int Damage
+    public override int Damage
     {
         get
         {
@@ -55,19 +43,17 @@ public class PlayerData : ScriptableObject
     }
 
 
-    public void Init()
+    public override void Init()
     {
+        base.Init();
+        
         Player = FindObjectOfType<Player>();
-
-        Hp = new Data<int>((hp) =>
-        {
-            Hp.Value = (int)(Hp.Value * (100f / (100 + Armor.Value)));
-        });
     }
 
-    public void WeaponChange<T>(T weapon) where T : Weapon
+    public void WeaponChange(Weapon weapon)
     {
         PlayerWeapon = weapon;
         
+        weapon.Init(this);
     }
 }

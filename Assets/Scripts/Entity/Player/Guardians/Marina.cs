@@ -33,12 +33,6 @@ public class Marina : Player
 
     protected override void Skill()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            var pos = transform.position + Random.onUnitSphere * 3;
-           
-            var effect = Instantiate(SkillEffect, pos, Quaternion.identity);
-            Destroy(effect, 2f);
-        }
+        playerData.PlayerWeapon.Skill();
     }
 }
