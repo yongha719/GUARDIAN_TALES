@@ -11,7 +11,7 @@ public enum WeaponAnimatorParameterType
     Trigger
 }
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
     private PlayerData playerData;
 
