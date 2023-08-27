@@ -11,7 +11,7 @@ public class Marina : Player
 
     public GameObject SkillEffect;
 
-    public override float AttackDelay => 0.3f;
+    public override float AttackDelay => 0.1f;
 
     protected override void Start()
     {
@@ -33,6 +33,6 @@ public class Marina : Player
 
     protected override void Skill()
     {
-        playerData.PlayerWeapon.Skill();
+        base.Skill();
     }
 }

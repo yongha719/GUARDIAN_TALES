@@ -21,6 +21,13 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     private string attackPatternCountName = "AttackPatternCount";
 
+        
+    [field: SerializeField]
+    public virtual float SkillDelay { get; protected set; }
+
+    [Tooltip("마지막으로 스킬을 사용한 시간")]
+    protected virtual float lastUseSkillTime { get; set; }
+    
     /// <summary>
     /// 공격 애니메이션 끝났을 때 콜백
     /// </summary>
@@ -29,6 +36,7 @@ public abstract class Weapon : MonoBehaviour
     };
 
     private Animator animator;
+    protected SpriteRenderer spriteRenderer;
 
     protected virtual void Start()
     {
@@ -37,6 +45,7 @@ public abstract class Weapon : MonoBehaviour
         playerData.PlayerWeapon = this;
 
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void Init(PlayerData _playerData)
@@ -81,6 +90,25 @@ public abstract class Weapon : MonoBehaviour
     }
 
     public abstract void Skill();
+    
+    public void TryUseSkill()
+    {
+        if (CanUseSkill())
+            Skill();
+    }
+
+    protected virtual bool CanUseSkill()
+    {
+        if (Time.time - lastUseSkillTime >= SkillDelay)
+        {
+            // 바로 스킬 사용못하게 막음
+            // 스킬이 끝나야 쿨타임 시작
+            lastUseSkillTime *= 2;
+            return true;
+        }
+
+        return false;
+    }
 
     public void FlipX(bool isLeft)
     {

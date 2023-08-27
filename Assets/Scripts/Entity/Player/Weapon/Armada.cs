@@ -5,7 +5,15 @@ using UnityEngine;
 public class Armada : Weapon
 {
     public float SkillRadius = 3;
+    
     public GameObject SkillEffect;
+
+    protected override void Start()
+    {
+        base.Start();
+        
+        SaveManager.Instance.SaveWeapon(spriteRenderer.sprite.texture, name);
+    }
 
     public override void Skill()
     {
