@@ -7,7 +7,7 @@ using UnityEngine.Android;
 public class SaveManager : Singleton<SaveManager>
 {
     /// <summary>
-    /// 가디언이 장착한 무기 저장
+    /// 가디언이 장착한 무기 이미지 저장
     /// </summary>
     /// <param name="texture"></param>
     /// <param name="path"></param>
@@ -39,4 +39,6 @@ public class SaveManager : Singleton<SaveManager>
 
         print("Save Success");
     }
+    
+    
 }

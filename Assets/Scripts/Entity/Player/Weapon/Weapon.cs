@@ -13,6 +13,7 @@ public enum WeaponAnimatorParameterType
 
 public abstract class Weapon : MonoBehaviour
 {
+    [Header("Weapon")]
     private PlayerData playerData;
 
     [SerializeField]
@@ -21,19 +22,14 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     private string attackPatternCountName = "AttackPatternCount";
 
-        
-    [field: SerializeField]
-    public virtual float SkillDelay { get; protected set; }
-
-    [Tooltip("마지막으로 스킬을 사용한 시간")]
-    protected virtual float lastUseSkillTime { get; set; }
+    [Space]
     
+    public CooldownController SkillCoolDown;
+
     /// <summary>
     /// 공격 애니메이션 끝났을 때 콜백
     /// </summary>
-    public event Action OnEndAttackAnimation = () =>
-    {
-    };
+    public event Action OnEndAttackAnimation = () => { };
 
     private Animator animator;
     protected SpriteRenderer spriteRenderer;
@@ -90,24 +86,11 @@ public abstract class Weapon : MonoBehaviour
     }
 
     public abstract void Skill();
-    
+
     public void TryUseSkill()
     {
-        if (CanUseSkill())
+        if (SkillCoolDown.IsCooldownFinished())
             Skill();
-    }
-
-    protected virtual bool CanUseSkill()
-    {
-        if (Time.time - lastUseSkillTime >= SkillDelay)
-        {
-            // 바로 스킬 사용못하게 막음
-            // 스킬이 끝나야 쿨타임 시작
-            lastUseSkillTime *= 2;
-            return true;
-        }
-
-        return false;
     }
 
     public void FlipX(bool isLeft)

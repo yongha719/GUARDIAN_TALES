@@ -26,12 +26,7 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-
-    [field: SerializeField, Tooltip("공격 딜레이")]
-    public virtual float AttackDelay { get; protected set; }
-
-    [Tooltip("마지막으로 공격한 시간")]
-    protected virtual float lastAttackTime { get; set; }
+    public CooldownController AttackCoolDown;
 
     protected SpriteRenderer spriteRenderer;
 
@@ -58,24 +53,11 @@ public abstract class Player : MonoBehaviour
 
     public void TryAttack()
     {
-        if (CanAttack())
+        if (AttackCoolDown.IsCooldownFinished())
         {
             AttackPatternCount++;
             Attack();
         }
-    }
-
-    protected virtual bool CanAttack()
-    {
-        if (Time.time - lastAttackTime >= AttackDelay)
-        {
-            // 바로 공격못하게 막음
-            // 공격 애니메이션이 끝나야 쿨타임 시작
-            lastAttackTime *= 2;
-            return true;
-        }
-
-        return false;
     }
 
 
@@ -84,11 +66,6 @@ public abstract class Player : MonoBehaviour
     public virtual void TryUseSkill()
     {
         playerData.PlayerWeapon.TryUseSkill();
-    }
-    
-    protected virtual void Skill()
-    {
-        playerData.PlayerWeapon.Skill();
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Armada : Weapon
 {
+    [Space]
+    [Header("Armada")]
     public float SkillRadius = 3;
     
     public GameObject SkillEffect;
