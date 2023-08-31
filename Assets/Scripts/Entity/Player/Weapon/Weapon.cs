@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponAnimatorParameterType
+public enum AnimatorParameterType
 {
     Float,
     Integer,
@@ -55,31 +55,31 @@ public abstract class Weapon : MonoBehaviour
     /// <param name="value">공격 패턴 카운트</param>
     public void SetAttackAnimator(int value)
     {
-        SetAnimatorParameter(WeaponAnimatorParameterType.Trigger, attackTriggerName);
-        SetAnimatorParameter(WeaponAnimatorParameterType.Integer, attackPatternCountName, value);
+        SetAnimatorParameter(AnimatorParameterType.Trigger, attackTriggerName);
+        SetAnimatorParameter(AnimatorParameterType.Integer, attackPatternCountName, value);
     }
 
     /// <summary>
     /// 플레이어에서 호출할 Animator Parameter 설정할 함수
     /// </summary>
-    public void SetAnimatorParameter(WeaponAnimatorParameterType parameterType, string parameterName,
+    public void SetAnimatorParameter(AnimatorParameterType parameterType, string parameterName,
         object value = null)
     {
-        if (parameterType != WeaponAnimatorParameterType.Trigger && value == null)
-            throw new NullReferenceException("SetAnimatorParameter Method : Parameter valu is Null");
+        if (parameterType != AnimatorParameterType.Trigger && value == null)
+            throw new NullReferenceException($"{nameof(SetAnimatorParameter)} Method : Parameter value is Null");
 
         switch (parameterType)
         {
-            case WeaponAnimatorParameterType.Float:
+            case AnimatorParameterType.Float:
                 animator.SetFloat(parameterName, (float)value);
                 break;
-            case WeaponAnimatorParameterType.Integer:
+            case AnimatorParameterType.Integer:
                 animator.SetInteger(parameterName, (int)value);
                 break;
-            case WeaponAnimatorParameterType.Bool:
+            case AnimatorParameterType.Bool:
                 animator.SetBool(parameterName, (bool)value);
                 break;
-            case WeaponAnimatorParameterType.Trigger:
+            case AnimatorParameterType.Trigger:
                 animator.SetTrigger(parameterName);
                 break;
         }

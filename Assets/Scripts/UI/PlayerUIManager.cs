@@ -11,16 +11,25 @@ public class PlayerUIManager : MonoBehaviour
 
     [SerializeField]
     private MyButton skillButton;
-    
-    private Player player; 
-    
+
+    [SerializeField]
+    private MyButton additionalSkillButton;
+
+    private Player player;
+
     private void Start()
     {
         RunAndInteractionButton = FindObjectOfType<RunAndInteractionButton>();
 
         player = FindObjectOfType<Player>();
 
-        attackButton.OnMouseEnter += player.TryAttack;
+        attackButton.OnMouseEnter += () => player.AttackCoolDown.IsCooldownFinished();
         skillButton.OnMouseEnter += player.TryUseSkill;
+
+        if (player.HasAdditionalSkill)
+        {
+            additionalSkillButton.SetActive(true);
+            additionalSkillButton.OnMouseEnter += () => player.AdditionalSkillCoolDown.IsCooldownFinished();
+        }
     }
 }

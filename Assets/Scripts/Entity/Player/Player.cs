@@ -21,18 +21,36 @@ public abstract class Player : MonoBehaviour
         set
         {
             attackPatternCount = value;
-            Utility.WrapValue(ref attackPatternCount, 1, 2);
+            Utility.WrapValue(ref attackPatternCount,
+                minAttackCount, maxAttackCount);
             print(attackPatternCount);
         }
     }
 
+    protected virtual int minAttackCount { get; }
+    
+    protected virtual int maxAttackCount { get; }
+
+    public virtual bool HasAdditionalSkill => false;
+    
+    [field: SerializeField]
+    public int AttackDelay { get; set; }
+    
+    [field: SerializeField]
+    public int AdditionalSkillDelay { get; set; }
+    
     public CooldownController AttackCoolDown;
 
+    public CooldownController AdditionalSkillCoolDown;
+    
     protected SpriteRenderer spriteRenderer;
 
     protected virtual void Start()
     {
         playerData = GameManager.Instance.PlayerData;
+
+        AttackCoolDown = new CooldownController(AttackDelay);
+        AdditionalSkillCoolDown = new CooldownController(AdditionalSkillDelay);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -49,6 +67,8 @@ public abstract class Player : MonoBehaviour
 
         spriteRenderer.flipX = isLeft;
         playerData.PlayerWeapon.FlipX(isLeft);
+
+        AttackCoolDown.OnCooldownReady += Attack;
     }
 
     public void TryAttack()
@@ -56,7 +76,6 @@ public abstract class Player : MonoBehaviour
         if (AttackCoolDown.IsCooldownFinished())
         {
             AttackPatternCount++;
-            Attack();
         }
     }
 
@@ -68,6 +87,8 @@ public abstract class Player : MonoBehaviour
         playerData.PlayerWeapon.TryUseSkill();
     }
 
+    
+    
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         print($"{other.name} : 감지");

@@ -22,4 +22,10 @@ public static class Utility
 
         return value;
     }
+
+    
+    public static void SetActive(this MonoBehaviour @object, bool value)
+    {
+        @object.gameObject.SetActive(value);
+    }
 }

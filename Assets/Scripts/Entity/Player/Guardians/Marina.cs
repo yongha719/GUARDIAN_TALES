@@ -7,6 +7,9 @@ public class Marina : Player
 {
     private CapsuleCollider2D circleCollider;
 
+    protected override int minAttackCount => 1;
+    protected override int maxAttackCount => 2;
+
     protected override void Start()
     {
         base.Start();
