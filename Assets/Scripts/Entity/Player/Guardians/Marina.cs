@@ -16,7 +16,7 @@ public class Marina : Player
 
         circleCollider = GetComponentInChildren<CapsuleCollider2D>();
 
-        playerData.PlayerWeapon.OnEndAttackAnimation += () =>
+        guardianData.PlayerWeapon.OnEndAttackAnimation += () =>
         {
             AttackCoolDown.InitCoolTime();
         };
@@ -25,6 +25,6 @@ public class Marina : Player
     protected override void Attack()
     {
         print("공격");
-        playerData.PlayerWeapon.SetAttackAnimator(AttackPatternCount);
+        guardianData.PlayerWeapon.SetAttackAnimator(AttackPatternCount);
     }
 }

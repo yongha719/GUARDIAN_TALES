@@ -3,18 +3,9 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public enum ElementalAttribute
-{
-    Fire,
-    Water,
-    Earth,
-    Light,
-    Dark,
-    Neutral
-}
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/PlayerData")]
-public class PlayerData : EntityData
+public class GuardianData : EntityData
 {
     [NonSerialized]
     public Player Player;

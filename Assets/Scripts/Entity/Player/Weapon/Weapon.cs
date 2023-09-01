@@ -14,7 +14,7 @@ public enum AnimatorParameterType
 public abstract class Weapon : MonoBehaviour
 {
     [Header("Weapon")]
-    private PlayerData playerData;
+    private GuardianData guardianData;
 
     [SerializeField]
     private string attackTriggerName = "Attack";
@@ -37,16 +37,16 @@ public abstract class Weapon : MonoBehaviour
     protected virtual void Start()
     {
         // Test
-        playerData = GameManager.Instance.PlayerData;
-        playerData.PlayerWeapon = this;
+        guardianData = GameManager.Instance.GuardianData;
+        guardianData.PlayerWeapon = this;
 
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    public void Init(PlayerData _playerData)
+    public void Init(GuardianData guardianData)
     {
-        playerData = _playerData;
+        this.guardianData = guardianData;
     }
 
     /// <summary>

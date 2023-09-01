@@ -8,8 +8,8 @@ using UnityEngine.Video;
 
 public abstract class Player : MonoBehaviour
 {
-    [SerializeField]
-    protected PlayerData playerData;
+    [FormerlySerializedAs("playerData")] [SerializeField]
+    protected GuardianData guardianData;
 
     [Tooltip("몇번째 공격인지 나타냄")]
     protected int attackPatternCount;
@@ -47,7 +47,7 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void Start()
     {
-        playerData = GameManager.Instance.PlayerData;
+        guardianData = GameManager.Instance.GuardianData;
 
         AttackCoolDown = new CooldownController(AttackDelay);
         AdditionalSkillCoolDown = new CooldownController(AdditionalSkillDelay);
@@ -60,13 +60,13 @@ public abstract class Player : MonoBehaviour
         // Move
         var dir = InputManager.Instance.Dir;
 
-        transform.Translate(dir * (playerData.Speed.Value * Time.deltaTime));
+        transform.Translate(dir * (guardianData.Speed.Value * Time.deltaTime));
 
 
         bool isLeft = dir.x < 0;
 
         spriteRenderer.flipX = isLeft;
-        playerData.PlayerWeapon.FlipX(isLeft);
+        guardianData.PlayerWeapon.FlipX(isLeft);
 
         AttackCoolDown.OnCooldownReady += Attack;
     }
@@ -84,7 +84,7 @@ public abstract class Player : MonoBehaviour
 
     public virtual void TryUseSkill()
     {
-        playerData.PlayerWeapon.TryUseSkill();
+        guardianData.PlayerWeapon.TryUseSkill();
     }
 
     

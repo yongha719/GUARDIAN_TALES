@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ElementalAttribute
+{
+    Fire,
+    Water,
+    Earth,
+    Light,
+    Dark,
+    Neutral
+}
+
 [CreateAssetMenu(fileName = "EntityData", menuName = "Data/EntityData")]
 public class EntityData : ScriptableObject
 {
