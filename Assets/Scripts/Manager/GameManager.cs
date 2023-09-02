@@ -18,7 +18,6 @@ public class GameManager : Singleton<GameManager>
         GuardianData.Init();
     }
 
-
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))

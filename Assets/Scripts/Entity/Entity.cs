@@ -7,6 +7,11 @@ public abstract class Entity : MonoBehaviour
 {
     public abstract EntityData Data { get; set; }
 
+    protected virtual void Start()
+    {
+        print(Data.ElementalAttribute);
+    }
+
     public virtual void Hit(int damage, ElementalAttribute enemyElemental)
     {
         Data.Hp.Value -= ModifyDamage(damage, enemyElemental);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum AnimatorParameterType
@@ -14,7 +15,7 @@ public enum AnimatorParameterType
 public abstract class Weapon : MonoBehaviour
 {
     [Header("Weapon")]
-    private GuardianData guardianData;
+    protected GuardianData guardianData;
 
     [SerializeField]
     private string attackTriggerName = "Attack";
@@ -23,7 +24,6 @@ public abstract class Weapon : MonoBehaviour
     private string attackPatternCountName = "AttackPatternCount";
 
     [Space]
-    
     public CooldownController SkillCoolDown;
 
     /// <summary>
@@ -87,6 +87,11 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract void Skill();
 
+    protected virtual IEnumerator SkillCoroutine()
+    {
+        yield return null;
+    }
+
     public void TryUseSkill()
     {
         if (SkillCoolDown.IsCooldownFinished())
@@ -101,6 +106,8 @@ public abstract class Weapon : MonoBehaviour
     public void Destroy()
     {
         Destroy(gameObject);
+        Dictionary<int, int> da = new();
+        da.First();
     }
 
     // 자식개체에 있는 WeaponChildColliderHandler 스크립트에서 호출

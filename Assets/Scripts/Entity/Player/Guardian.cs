@@ -6,9 +6,15 @@ using UnityEngine.Serialization;
 using UnityEngine.Video;
 
 
-public abstract class Player : MonoBehaviour
+public abstract class Guardian : Entity
 {
-    [FormerlySerializedAs("playerData")] [SerializeField]
+    public override EntityData Data
+    {
+        get => guardianData;
+        set => guardianData = (GuardianData)value;
+    }
+    
+    [SerializeField]
     protected GuardianData guardianData;
 
     [Tooltip("몇번째 공격인지 나타냄")]
@@ -45,9 +51,14 @@ public abstract class Player : MonoBehaviour
     
     protected SpriteRenderer spriteRenderer;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         guardianData = GameManager.Instance.GuardianData;
+    }
+
+    protected virtual void Start()
+    {
+        base.Start();
 
         AttackCoolDown = new CooldownController(AttackDelay);
         AdditionalSkillCoolDown = new CooldownController(AdditionalSkillDelay);
@@ -61,7 +72,6 @@ public abstract class Player : MonoBehaviour
         var dir = InputManager.Instance.Dir;
 
         transform.Translate(dir * (guardianData.Speed.Value * Time.deltaTime));
-
 
         bool isLeft = dir.x < 0;
 

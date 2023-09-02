@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 282808317}
   - component: {fileID: 282808316}
   m_Layer: 5
-  m_Name: Skill Button
+  m_Name: Addition Skill Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1019,11 +1019,11 @@ MonoBehaviour:
   isPointerInside: 0
   isPointerDown: 0
   ColorBlock:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9595923, g: 1, b: 0.7327044, a: 1}
-    m_PressedColor: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 1}
-    m_SelectedColor: {r: 1, g: 0.5911949, b: 0.5911949, a: 1}
-    m_DisabledColor: {r: 0.72871447, g: 1, b: 0.7232704, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.9595923, g: 1, b: 0.7327044, a: 0}
+    m_PressedColor: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 0}
+    m_SelectedColor: {r: 1, g: 0.5911949, b: 0.5911949, a: 0}
+    m_DisabledColor: {r: 0.72871447, g: 1, b: 0.7232704, a: 0}
     m_ColorMultiplier: 0
     m_FadeDuration: 0
   MoveDirType: 1
@@ -1121,11 +1121,11 @@ MonoBehaviour:
   isPointerInside: 0
   isPointerDown: 0
   ColorBlock:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9595923, g: 1, b: 0.7327044, a: 1}
-    m_PressedColor: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 1}
-    m_SelectedColor: {r: 1, g: 0.5911949, b: 0.5911949, a: 1}
-    m_DisabledColor: {r: 0.72871447, g: 1, b: 0.7232704, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.9595923, g: 1, b: 0.7327044, a: 0}
+    m_PressedColor: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 0}
+    m_SelectedColor: {r: 1, g: 0.5911949, b: 0.5911949, a: 0}
+    m_DisabledColor: {r: 0.72871447, g: 1, b: 0.7232704, a: 0}
     m_ColorMultiplier: 0
     m_FadeDuration: 0
   MoveDirType: 3
@@ -1223,11 +1223,11 @@ MonoBehaviour:
   isPointerInside: 0
   isPointerDown: 0
   ColorBlock:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9595923, g: 1, b: 0.7327044, a: 1}
-    m_PressedColor: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 1}
-    m_SelectedColor: {r: 1, g: 0.5911949, b: 0.5911949, a: 1}
-    m_DisabledColor: {r: 0.72871447, g: 1, b: 0.7232704, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.9595923, g: 1, b: 0.7327044, a: 0}
+    m_PressedColor: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 0}
+    m_SelectedColor: {r: 1, g: 0.5911949, b: 0.5911949, a: 0}
+    m_DisabledColor: {r: 0.72871447, g: 1, b: 0.7232704, a: 0}
     m_ColorMultiplier: 0
     m_FadeDuration: 0
   MoveDirType: 5
@@ -1415,7 +1415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0031f1b8c2fd33848b6ae0fd578a1186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GuardianData: {fileID: 0}
+  GuardianData: {fileID: 11400000, guid: 60cac2319488a104380700dad10aadad, type: 2}
 --- !u!1 &1109681369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1824,50 +1824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7232b3922e19fa844bcd7bb35b6a0956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1524648764
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1524648766}
-  - component: {fileID: 1524648765}
-  m_Layer: 0
-  m_Name: SaveManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1524648765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524648764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6081c242dc0ab8843898acbc6fcefd0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1524648766
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524648764}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1720969011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,7 +1944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackButton: {fileID: 1347211598}
   skillButton: {fileID: 1733302600}
-  additionalSkillButton: {fileID: 0}
+  additionalSkillButton: {fileID: 282808316}
 --- !u!1 &1733302598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,11 +2103,11 @@ MonoBehaviour:
   isPointerInside: 0
   isPointerDown: 0
   ColorBlock:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9595923, g: 1, b: 0.7327044, a: 1}
-    m_PressedColor: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 1}
-    m_SelectedColor: {r: 1, g: 0.5911949, b: 0.5911949, a: 1}
-    m_DisabledColor: {r: 0.72871447, g: 1, b: 0.7232704, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.9595923, g: 1, b: 0.7327044, a: 0}
+    m_PressedColor: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 0}
+    m_SelectedColor: {r: 1, g: 0.5911949, b: 0.5911949, a: 0}
+    m_DisabledColor: {r: 0.72871447, g: 1, b: 0.7232704, a: 0}
     m_ColorMultiplier: 0
     m_FadeDuration: 0
   MoveDirType: 7

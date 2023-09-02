@@ -8,9 +8,11 @@ using Random = UnityEngine.Random;
 public class GuardianData : EntityData
 {
     [NonSerialized]
-    public Player Player;
+    public Guardian Guardian;
 
     public Weapon PlayerWeapon;
+
+    public Vector3 Pos => Guardian.transform.position;
 
     [field: SerializeField, Tooltip("크리티컬 확률")]
     public int CriticalChance { get; set; }
@@ -38,7 +40,7 @@ public class GuardianData : EntityData
     {
         base.Init();
         
-        Player = FindObjectOfType<Player>();
+        Guardian = FindObjectOfType<Guardian>();
     }
 
     public void WeaponChange(Weapon weapon)

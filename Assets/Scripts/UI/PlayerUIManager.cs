@@ -15,21 +15,21 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private MyButton additionalSkillButton;
 
-    private Player player;
+    private Guardian guardian;
 
     private void Start()
     {
         RunAndInteractionButton = FindObjectOfType<RunAndInteractionButton>();
 
-        player = FindObjectOfType<Player>();
+        guardian = GameManager.Instance.GuardianData.Guardian;
 
-        attackButton.OnMouseEnter += () => player.AttackCoolDown.IsCooldownFinished();
-        skillButton.OnMouseEnter += player.TryUseSkill;
-
-        if (player.HasAdditionalSkill)
+        attackButton.OnMouseEnter += () => guardian.AttackCoolDown.IsCooldownFinished();
+        skillButton.OnMouseEnter += guardian.TryUseSkill;
+        
+        if (guardian.HasAdditionalSkill)
         {
             additionalSkillButton.SetActive(true);
-            additionalSkillButton.OnMouseEnter += () => player.AdditionalSkillCoolDown.IsCooldownFinished();
+            additionalSkillButton.OnMouseEnter += () => guardian.AdditionalSkillCoolDown.IsCooldownFinished();
         }
     }
 }

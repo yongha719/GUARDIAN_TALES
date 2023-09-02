@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Armada : Weapon
@@ -10,24 +11,42 @@ public class Armada : Weapon
 
     public GameObject SkillEffect;
 
+    private Collider2D[] collider2Ds = new Collider2D[10];
+
+    private WaitForSeconds skillWaitSeconds = new WaitForSeconds(0.2f);
+
     protected override void Start()
     {
         base.Start();
 
-        SaveManager.Instance.SaveWeapon(spriteRenderer.sprite.texture, name);
+        SaveManager.SaveWeapon(spriteRenderer.sprite.texture, name);
     }
 
     public override void Skill()
     {
+        StartCoroutine(SkillCoroutine());
+    }
+
+    protected override IEnumerator SkillCoroutine()
+    {
         for (int i = 0; i < 10; i++)
         {
             // 적 스크립트 만들고 적 위치 가져와서 공격하기
-            // if() { }
-            // else
-            var pos = transform.position + Random.onUnitSphere * SkillRadius;
+            var enemies = Physics2D.OverlapCircleAll(guardianData.Pos, SkillRadius, LayerMask.NameToLayer("Enemy"));
 
-            var effect = Instantiate(SkillEffect, pos, Quaternion.identity);
-            Destroy(effect, 2f);
+            if (enemies.Length > 0)
+            {
+                var enemy = enemies.Random(out int index);
+
+                Vector3 enemyPos = enemy.transform.position;
+
+                var effect = Instantiate(SkillEffect, enemyPos, Quaternion.identity);
+                // enemies[index].
+                
+                Destroy(effect, 2f);
+            }
+
+            yield return skillWaitSeconds;
         }
     }
 }

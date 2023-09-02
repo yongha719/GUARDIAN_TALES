@@ -4,14 +4,14 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Android;
 
-public class SaveManager : Singleton<SaveManager>
+public class SaveManager
 {
     /// <summary>
     /// 가디언이 장착한 무기 이미지 저장
     /// </summary>
     /// <param name="texture"></param>
     /// <param name="path"></param>
-    public void SaveWeapon(Texture2D texture, string guardianName)
+    public static void SaveWeapon(Texture2D texture, string guardianName)
     {
 #if UNITY_ANDROID
         // 안드로이드 권한 요청
@@ -25,20 +25,20 @@ public class SaveManager : Singleton<SaveManager>
 
 #if UNITY_ANDROID
         string filePath = Path.Combine($"{Application.persistentDataPath}/Guardian");
+#else
+        string filePath = Path.Combine("Test");
+#endif
 
         // 디렉토리 생성
         if (Directory.Exists(filePath) == false)
         {
             Directory.CreateDirectory(filePath);
+            Debug.Log($"Create Directory : {filePath}");
         }
-#else
-        string filePath = Path.Combine("Test");
-#endif
-
+        
+        
         File.WriteAllBytes(Path.Combine(filePath, $"{guardianName}.png"), bytes);
 
-        print("Save Success");
+        Debug.Log($"Success Save\nDirectory : {filePath}");
     }
-    
-    
 }

@@ -51,38 +51,5 @@ public class MovableButton : MyButton
         base.OnPointerExit(eventData);
     }
 
-    public void CalculateMovementValues(out float h, out float v)
-    {
-        h = v = 0f;
-
-        switch (MoveDirType)
-        {
-            case MoveDirType.Up:
-                v = 1f;
-                break;
-            case MoveDirType.RightUp:
-                v = h = 1f;
-                break;
-            case MoveDirType.Right:
-                h = 1f;
-                break;
-            case MoveDirType.RightDown:
-                v = -1f;
-                h = 1f;
-                break;
-            case MoveDirType.Down:
-                v = -1f;
-                break;
-            case MoveDirType.LeftDown:
-                v = h = -1f;
-                break;
-            case MoveDirType.Left:
-                h = -1f;
-                break;
-            case MoveDirType.LeftUp:
-                v = 1f;
-                h = -1f;
-                break;
-        }
-    }
+  
 }

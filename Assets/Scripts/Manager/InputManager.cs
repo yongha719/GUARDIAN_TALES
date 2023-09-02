@@ -65,12 +65,11 @@ public class InputManager : Singleton<InputManager>
         };
 
         movableButtons.Add(button);
-        print($"added button: {button.gameObject.name}");
     }
 
     // 버튼을 listen해서 dir을 수정하도록
     // 플레이어에서는 Dir을 참조해서 사용하도록
-    private void Update()
+    private void FixedUpdate()
     {
         if (AnyButtonPressed == false)
         {
@@ -78,7 +77,7 @@ public class InputManager : Singleton<InputManager>
             return;
         }
 
-        curMovableButton.CalculateMovementValues(out float h, out float v);
+        CalculateMovementValues(out float h, out float v);
 
         dir = SmoothInput(h, v);
     }
@@ -94,5 +93,40 @@ public class InputManager : Singleton<InputManager>
         return new Vector2(
             Mathf.Abs(dir.x) < deadZone ? 0f : dir.x,
             Mathf.Abs(dir.y) < deadZone ? 0f : dir.y);
+    }
+    
+    public void CalculateMovementValues(out float h, out float v)
+    {
+        h = v = 0f;
+
+        switch (curMovableButton.MoveDirType)
+        {
+            case MoveDirType.Up:
+                v = 1f;
+                break;
+            case MoveDirType.RightUp:
+                v = h = 1f;
+                break;
+            case MoveDirType.Right:
+                h = 1f;
+                break;
+            case MoveDirType.RightDown:
+                v = -1f;
+                h = 1f;
+                break;
+            case MoveDirType.Down:
+                v = -1f;
+                break;
+            case MoveDirType.LeftDown:
+                v = h = -1f;
+                break;
+            case MoveDirType.Left:
+                h = -1f;
+                break;
+            case MoveDirType.LeftUp:
+                v = 1f;
+                h = -1f;
+                break;
+        }
     }
 }
