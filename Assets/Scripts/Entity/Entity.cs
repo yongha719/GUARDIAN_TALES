@@ -5,8 +5,12 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
+    [Header(nameof(Entity))]
+    private int bbracjji;
+    
     public abstract EntityData Data { get; set; }
 
+    
     protected virtual void Start()
     {
         print(Data.ElementalAttribute);

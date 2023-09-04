@@ -13,7 +13,10 @@ public class Armada : Weapon
 
     private Collider2D[] collider2Ds = new Collider2D[10];
 
+    [Tooltip("스킬 쓸 때 ")]
+    private float skillAttackDelay;
     private WaitForSeconds skillWaitSeconds = new WaitForSeconds(0.2f);
+
 
     protected override void Start()
     {

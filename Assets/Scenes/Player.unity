@@ -1556,7 +1556,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_FontSize: 51
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 6
@@ -1567,7 +1567,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC2A4\uD0AC\n"
+  m_Text: "\uCD94\uAC00\n\uC2A4\uD0AC\n"
 --- !u!222 &1161562092
 CanvasRenderer:
   m_ObjectHideFlags: 0

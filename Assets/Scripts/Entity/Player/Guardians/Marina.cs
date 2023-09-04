@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 
 public class Marina : Guardian
 {
+    [Header(nameof(Marina))]
     private CapsuleCollider2D circleCollider;
 
     protected override int minAttackCount => 1;

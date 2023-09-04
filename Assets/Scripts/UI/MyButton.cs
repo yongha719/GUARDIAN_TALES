@@ -133,6 +133,8 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     {
         isPointerInside = false;
 
+        print($"{nameof(OnPointerExit)}: {isPointerInside}");        
+        
         OnMouseExit();
         UpdateImageColorByButtonState();
     }

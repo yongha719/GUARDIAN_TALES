@@ -8,6 +8,9 @@ using UnityEngine.Video;
 
 public abstract class Guardian : Entity
 {
+    [Header(nameof(Guardian))]
+    private int bbracjji;
+    
     public override EntityData Data
     {
         get => guardianData;
@@ -48,16 +51,17 @@ public abstract class Guardian : Entity
     public CooldownController AttackCoolDown;
 
     public CooldownController AdditionalSkillCoolDown;
-    
+
+    #region Component
+
     protected SpriteRenderer spriteRenderer;
 
-    protected virtual void Awake()
-    {
-        guardianData = GameManager.Instance.GuardianData;
-    }
+    #endregion
 
     protected virtual void Start()
     {
+        guardianData = GameManager.Instance.GuardianData;
+        
         base.Start();
 
         AttackCoolDown = new CooldownController(AttackDelay);

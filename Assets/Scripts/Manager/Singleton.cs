@@ -34,7 +34,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             if (DontDestroy)
                 DontDestroyOnLoad(gameObject);
         }
-        else if (instance != null)
+        else if (this != instance)
         {
             Destroy(gameObject);
         }

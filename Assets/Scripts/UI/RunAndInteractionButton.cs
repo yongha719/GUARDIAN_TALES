@@ -28,6 +28,7 @@ public class RunAndInteractionButton : MyButton, IRunAndInteractionButton
 
     public event Action OnInteractionButtonUp = () => { };
 
+    
     protected override void Start()
     {
         base.Start();
