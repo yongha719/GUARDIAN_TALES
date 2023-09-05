@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 using UnityEngine.Video;
 
 
-public abstract class Guardian : Entity, IGuardianActions
+public abstract class Guardian : Entity
 {
     public override EntityData Data
     {
@@ -35,7 +35,7 @@ public abstract class Guardian : Entity, IGuardianActions
     }
 
     protected virtual int minAttackCount { get; }
-
+    
     protected virtual int maxAttackCount { get; }
 
     public virtual bool HasAdditionalSkill => false;
@@ -50,14 +50,13 @@ public abstract class Guardian : Entity, IGuardianActions
 
     #endregion
 
-    protected override void Start()
+    protected virtual void Start()
     {
         guardianData = GameManager.Instance.GuardianData;
-
+        
         base.Start();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        print("가디언");
     }
 
     protected virtual void FixedUpdate()
@@ -72,11 +71,15 @@ public abstract class Guardian : Entity, IGuardianActions
         spriteRenderer.flipX = isLeft;
         guardianData.PlayerWeapon.FlipX(isLeft);
 
-        AttackCoolDown.OnCooldownReady += () =>
+        AttackCoolDown.OnCooldownReady += Attack;
+    }
+
+    public void TryAttack()
+    {
+        if (AttackCoolDown.IsCooldownFinished())
         {
             AttackPatternCount++;
-            Attack();
-        };
+        }
     }
 
     protected abstract void Attack();
