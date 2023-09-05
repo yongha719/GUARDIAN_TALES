@@ -9,7 +9,7 @@ using UnityEngine.Video;
 public abstract class Guardian : Entity
 {
     [Header(nameof(Guardian))]
-    private int bbracjji;
+    private int g_bbracjji;
     
     public override EntityData Data
     {
