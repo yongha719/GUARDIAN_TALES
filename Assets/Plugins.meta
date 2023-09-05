@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Plugins.meta
 guid: e7b645c8ccb766f46820256602b507a6
+========
+guid: b4d9ac23e0d2a0a4d8530bbd72c1afca
+>>>>>>>> 53c9a25 (Armada Skill):Assets/Scripts/Entity/Player/Guardians/Interface.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -15,7 +15,7 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private MyButton additionalSkillButton;
 
-    private Guardian guardian;
+    private IGuardianActions guardian;
 
     private void Start()
     {
@@ -54,4 +54,6 @@ public class PlayerUIManager : MonoBehaviour
             
         }
     }
+    
+    
 }
