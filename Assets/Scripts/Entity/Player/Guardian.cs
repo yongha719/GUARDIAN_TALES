@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 using UnityEngine.Video;
 
 
-public abstract class Guardian : Entity, IGuardianActions
+public abstract class Guardian : Entity
 {
     public override EntityData Data
     {
