@@ -9,7 +9,8 @@ public enum ElementalAttribute
     Earth,
     Light,
     Dark,
-    Neutral
+    Neutral,
+    MAX
 }
 
 [CreateAssetMenu(fileName = "EntityData", menuName = "Data/EntityData")]

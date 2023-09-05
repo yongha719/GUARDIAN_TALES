@@ -6,17 +6,15 @@ using UnityEngine.Serialization;
 using UnityEngine.Video;
 
 
-public abstract class Guardian : Entity, IGuardianActions
+public abstract class Guardian : Entity
 {
-    [Header(nameof(Guardian))]
-    private int g_bbracjji;
-
     public override EntityData Data
     {
         get => guardianData;
         set => guardianData = (GuardianData)value;
     }
 
+    [Header(nameof(Guardian))]
     [SerializeField]
     protected GuardianData guardianData;
 
@@ -42,17 +40,11 @@ public abstract class Guardian : Entity, IGuardianActions
 
     public virtual bool HasAdditionalSkill => false;
 
-    [field: SerializeField]
-    public int AttackDelay { get; set; }
+    public CooldownController AttackCoolDown = new();
 
-    [field: SerializeField]
-    public int AdditionalSkillDelay { get; set; }
+    public CooldownController AdditionalSkillCoolDown = new();
 
-    public CooldownController AttackCoolDown;
-
-    public CooldownController AdditionalSkillCoolDown;
-
-    #region Component
+    #region Unity Components
 
     protected SpriteRenderer spriteRenderer;
 
@@ -63,9 +55,6 @@ public abstract class Guardian : Entity, IGuardianActions
         guardianData = GameManager.Instance.GuardianData;
 
         base.Start();
-
-        AttackCoolDown = new CooldownController(AttackDelay);
-        AdditionalSkillCoolDown = new CooldownController(AdditionalSkillDelay);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         print("가디언");
@@ -89,13 +78,11 @@ public abstract class Guardian : Entity, IGuardianActions
             Attack();
         };
     }
-    
+
     protected abstract void Attack();
 
-    public bool TryAttack(out float coolTime)
+    public bool TryAttack()
     {
-        coolTime = AttackCoolDown.Delay;
-        
         return AttackCoolDown.IsCooldownFinished();
     }
 
@@ -103,17 +90,17 @@ public abstract class Guardian : Entity, IGuardianActions
     public bool TryUseSkill(out float coolTime)
     {
         coolTime = guardianData.PlayerWeapon.SkillCoolDown.Delay;
-        
+
         return guardianData.PlayerWeapon.TryUseSkill();
     }
 
     public bool TryUseAdditionalSKill(out float coolTime)
     {
         coolTime = AdditionalSkillCoolDown.Delay;
-        
+
         return AdditionalSkillCoolDown.IsCooldownFinished();
     }
-    
+
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {

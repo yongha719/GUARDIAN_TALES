@@ -2483,10 +2483,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5416701639257342275, guid: 9f123e1be4bd2234a8c4a3af790f9b9d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5416701639257342302, guid: 9f123e1be4bd2234a8c4a3af790f9b9d, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2534,10 +2530,6 @@ PrefabInstance:
     - target: {fileID: 5416701639257342303, guid: 9f123e1be4bd2234a8c4a3af790f9b9d, type: 3}
       propertyPath: m_Name
       value: Marina
-      objectReference: {fileID: 0}
-    - target: {fileID: 5416701640634695827, guid: 9f123e1be4bd2234a8c4a3af790f9b9d, type: 3}
-      propertyPath: SkillCoolDown.<Delay>k__BackingField
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f123e1be4bd2234a8c4a3af790f9b9d, type: 3}
