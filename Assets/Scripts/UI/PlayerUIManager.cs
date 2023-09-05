@@ -15,7 +15,7 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     private MyButton additionalSkillButton;
 
-    private Guardian guardian;
+    private IGuardianActions guardian;
 
     private void Start()
     {
@@ -23,13 +23,34 @@ public class PlayerUIManager : MonoBehaviour
 
         guardian = GameManager.Instance.GuardianData.Guardian;
 
-        attackButton.OnMouseEnter += () => guardian.AttackCoolDown.IsCooldownFinished();
-        skillButton.OnMouseEnter += guardian.TryUseSkill;
-        
+        attackButton.OnMouseEnter += () =>
+        {
+            if (guardian.TryAttack(out float coolTime))
+            {
+                
+            } 
+        };
+
+        skillButton.OnMouseEnter += () =>
+        {
+            if (guardian.TryUseSkill(out float coolTime))
+            {
+                
+            }
+        };
+
         if (guardian.HasAdditionalSkill)
         {
             additionalSkillButton.SetActive(true);
-            additionalSkillButton.OnMouseEnter += () => guardian.AdditionalSkillCoolDown.IsCooldownFinished();
+            additionalSkillButton.OnMouseEnter += () =>
+            {
+                if (guardian.TryUseAdditionalSKill(out float coolTime))
+                {
+                    
+                }
+            };
         }
     }
+    
+    
 }

@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class CooldownController
@@ -11,15 +10,39 @@ public class CooldownController
 
     private float lastCoolTime = float.MaxValue;
 
-    public event Action OnCooldownReady = () => { };
+    private bool hasFillImage;
 
-    public CooldownController() { }
+    private Image fillImage;
 
-    public CooldownController(float delay)
+    public float RemainingCooldown
     {
-        Delay = delay;
+        get
+        {
+            if (Time.time - lastCoolTime > Delay)
+                return 0;
+
+            return Delay - (Time.time - lastCoolTime);
+        }
     }
 
+    public float RemainingCooldownClamp01 => Utility.Clamp01(0, Delay, RemainingCooldown);
+    
+    public event Action OnCooldownReady = () => { };
+
+    
+    public CooldownController() { }
+
+    public CooldownController(float _delay)
+    {
+        Delay = _delay;
+    }
+
+    public void InitFillImage(Image image)
+    {
+        hasFillImage = true;
+        fillImage = image;
+    }
+    
     public void InitCoolTime()
     {
         lastCoolTime = Time.time;

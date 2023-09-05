@@ -18,7 +18,26 @@ public static class Utility
         if (value > max)
             value = min;
     }
+    
+    /// <summary>
+    /// 주어진 value 값을 min과 max 사이의 범위로 클램핑한 후, 그 값을 0과 1 사이의 값으로 정규화함
+    /// </summary>
+    /// <param name="min">범위의 최소값</param>
+    /// <param name="max">범위의 최대값</param>
+    /// <param name="value">클램핑하고 정규화할 값</param>
+    /// <returns>클램핑 및 정규화된 값 (0과 1 사이)</returns>
+    public static float Clamp01(float min, float max, float value)
+    {
+        // 상대적인 위치 계산
+        float relativePosition = (value - min) / (max - min);
 
+        // 0과 1 사이의 범위로 매핑
+        float mappedValue = Mathf.Clamp01(relativePosition);
+            
+        return mappedValue;
+    }
+
+    
     #region Extension Method
 
     public static void SetActive(this MonoBehaviour @object, bool value)

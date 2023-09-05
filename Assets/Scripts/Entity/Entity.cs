@@ -9,7 +9,7 @@ public abstract class Entity : MonoBehaviour
     [Header(nameof(Entity))]
     private int bbracjji;
     
-    private Dictionary<ElementalAttribute, Dictionary<ElementalAttribute, float>> elementalDamageMultiplier = new Dictionary<ElementalAttribute, Dictionary<ElementalAttribute, float>>();
+    private Dictionary<ElementalAttribute, Dictionary<ElementalAttribute, float>> elementalDamageMultiplier = new();
 
     public abstract EntityData Data { get; set; }
 
@@ -17,21 +17,28 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Start()
     {
         print(Data.ElementalAttribute);
+
+        elementalDamageMultiplier[ElementalAttribute.Fire] = new();
         Add(ElementalAttribute.Fire, ElementalAttribute.Water, true);
         Add(ElementalAttribute.Fire, ElementalAttribute.Earth, false);
 
+        elementalDamageMultiplier[ElementalAttribute.Water] = new();
         Add(ElementalAttribute.Water, ElementalAttribute.Earth, true);
         Add(ElementalAttribute.Water, ElementalAttribute.Fire, false);
 
+        elementalDamageMultiplier[ElementalAttribute.Earth] = new();
         Add(ElementalAttribute.Earth, ElementalAttribute.Fire, true);
         Add(ElementalAttribute.Earth, ElementalAttribute.Water, false);
 
+        elementalDamageMultiplier[ElementalAttribute.Light] = new();
         Add(ElementalAttribute.Light, ElementalAttribute.Neutral, true);
         Add(ElementalAttribute.Light, ElementalAttribute.Dark, false);
 
+        elementalDamageMultiplier[ElementalAttribute.Dark] = new();
         Add(ElementalAttribute.Dark, ElementalAttribute.Light, true);
         Add(ElementalAttribute.Dark, ElementalAttribute.Neutral, false);
 
+        elementalDamageMultiplier[ElementalAttribute.Neutral] = new();
         Add(ElementalAttribute.Neutral, ElementalAttribute.Dark, true);
         Add(ElementalAttribute.Neutral, ElementalAttribute.Light, false);
     }
@@ -52,7 +59,7 @@ public abstract class Entity : MonoBehaviour
     // 화 -> 지 -> 수 -> 화
     // 광 -> 암 -> 무 -> 광
     // 유리한 속성일 경우 130% 불리한 경우 70%임
-    public virtual int ModifyDamage(int damage, ElementalAttribute enemyElemental)
+    protected virtual int ModifyDamage(int damage, ElementalAttribute enemyElemental)
     {
         if (!elementalDamageMultiplier.Keys.Contains(Data.ElementalAttribute)) return 1;
         if (!elementalDamageMultiplier[Data.ElementalAttribute].Keys.Contains(enemyElemental)) return 1;

@@ -34,6 +34,11 @@ public abstract class Weapon : MonoBehaviour
     private Animator animator;
     protected SpriteRenderer spriteRenderer;
 
+    public void Init(GuardianData guardianData)
+    {
+        this.guardianData = guardianData;
+    }
+    
     protected virtual void Start()
     {
         // Test
@@ -42,12 +47,10 @@ public abstract class Weapon : MonoBehaviour
 
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        
+        SkillCoolDown.InitCoolTime();
     }
 
-    public void Init(GuardianData guardianData)
-    {
-        this.guardianData = guardianData;
-    }
 
     /// <summary>
     /// 플레이어 스크립트에서 공격할 때 사용할 함수
@@ -92,10 +95,18 @@ public abstract class Weapon : MonoBehaviour
         yield return null;
     }
 
-    public void TryUseSkill()
+    public bool TryUseSkill()
     {
+        print("try use skill");
+        
         if (SkillCoolDown.IsCooldownFinished())
+        {
+            print("use Skill");
             Skill();
+            return true;
+        }
+
+        return false;
     }
 
     public void FlipX(bool isLeft)

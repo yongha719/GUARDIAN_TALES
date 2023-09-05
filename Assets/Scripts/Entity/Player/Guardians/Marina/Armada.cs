@@ -34,7 +34,6 @@ public class Armada : Weapon
     {
         for (int i = 0; i < 10; i++)
         {
-            // 적 스크립트 만들고 적 위치 가져와서 공격하기
             var enemies = Physics2D.OverlapCircleAll(guardianData.Pos, SkillRadius, LayerMask.NameToLayer("Enemy"));
 
             if (enemies.Length > 0)
@@ -48,6 +47,8 @@ public class Armada : Weapon
                 
                 Destroy(effect, 2f);
             }
+            
+            print($"is there enemy : {enemies.Length > 0}");
 
             yield return skillWaitSeconds;
         }
