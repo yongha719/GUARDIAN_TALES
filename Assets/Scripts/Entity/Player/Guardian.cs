@@ -81,6 +81,8 @@ public abstract class Guardian : Entity
 
     protected abstract void Attack();
 
+    protected virtual void AdditionalSkill() { }
+
     public bool TryAttack()
     {
         return AttackCoolDown.IsCooldownFinished();

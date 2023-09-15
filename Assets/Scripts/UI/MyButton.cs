@@ -75,6 +75,7 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         UpdateImageColorByButtonState();
     }
 
+
     private void UpdateImageColorByButtonState()
     {
         switch (currentMyButtonState)

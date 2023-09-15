@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Marina : Guardian
 {
     [Header(nameof(Marina))]
-    private CapsuleCollider2D circleCollider;
+    private CapsuleCollider2D capsuleCollider;
 
     protected override int minAttackCount => 1;
     protected override int maxAttackCount => 2;
@@ -18,7 +15,7 @@ public class Marina : Guardian
     {
         base.Start();
 
-        circleCollider = GetComponentInChildren<CapsuleCollider2D>();
+        capsuleCollider = GetComponentInChildren<CapsuleCollider2D>();
 
         guardianData.PlayerWeapon.OnEndAttackAnimation += () =>
         {
@@ -32,4 +29,8 @@ public class Marina : Guardian
         guardianData.PlayerWeapon.SetAttackAnimator(AttackPatternCount);
     }
 
+    protected override void AdditionalSkill()
+    {   
+        
+    }
 }

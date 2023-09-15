@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerUIManager : MonoBehaviour
@@ -23,12 +24,14 @@ public class PlayerUIManager : MonoBehaviour
 
         guardian = GameManager.Instance.GuardianData.Guardian;
 
-        attackButton.OnMouseEnter += () =>
+        attackButton.OnPressed += () =>
         {
             guardian.TryAttack();
         };
 
-        skillButton.OnMouseEnter += () =>
+
+
+        skillButton.OnPressed += () =>
         {
             if (guardian.TryUseSkill(out float coolTime))
             {
@@ -38,7 +41,7 @@ public class PlayerUIManager : MonoBehaviour
 
 
         additionalSkillButton.SetActive(guardian.HasAdditionalSkill);
-        additionalSkillButton.OnMouseEnter += () =>
+        additionalSkillButton.OnPressed += () =>
         {
             if (guardian.TryUseAdditionalSKill(out float coolTime))
             {
@@ -47,11 +50,11 @@ public class PlayerUIManager : MonoBehaviour
         };
     }
 
-    public async void UpdateFillImage()
+    public async UniTask UpdateFillImage()
     {
         while (true)
         {
-            
+            await UniTask.NextFrame();
         }
     }
 }

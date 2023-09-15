@@ -19,6 +19,28 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
+    public MoveDirType FourWayMoveDirType {
+        get
+        {
+            var absX = MathF.Abs(dir.x);
+            var absY = MathF.Abs(dir.y);
+
+            var max = Mathf.Max(absX, absY);
+
+            var dirType = MoveDirType.Up;
+
+            if(max == absX)
+            {
+                dirType = dir.x < 0 ? MoveDirType.Left : MoveDirType.Right;
+            }
+            else if(max == absY)
+            {
+                dirType = dir.y < 0 ? MoveDirType.Down : MoveDirType.Up;
+            }
+
+            return dirType;
+        }
+    }
 
     private List<MovableButton> movableButtons = new(8);
 

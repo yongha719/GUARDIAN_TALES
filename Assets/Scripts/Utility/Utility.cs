@@ -9,7 +9,7 @@ using Random = System.Random;
 public static class Utility
 {
     private static Random random = new Random();
-    
+
     public static void WrapValue(ref int value, int min, int max)
     {
         if (value < min)
@@ -18,7 +18,7 @@ public static class Utility
         if (value > max)
             value = min;
     }
-    
+
     /// <summary>
     /// 주어진 value 값을 min과 max 사이의 범위로 클램핑한 후, 그 값을 0과 1 사이의 값으로 정규화함
     /// </summary>
@@ -33,11 +33,11 @@ public static class Utility
 
         // 0과 1 사이의 범위로 매핑
         float mappedValue = Mathf.Clamp01(relativePosition);
-            
+
         return mappedValue;
     }
 
-    
+
     #region Extension Method
 
     public static void SetActive(this MonoBehaviour @object, bool value)
@@ -54,14 +54,14 @@ public static class Utility
 
         return source.ElementAt(randomIndex);
     }
-    
+
     public static T Random<T>(this IEnumerable<T> source, out int index)
     {
         if (source == null)
             throw new ArgumentNullException("source is null");
 
         index = random.Next(0, source.Count());
-
+         
         return source.ElementAt(index);
     }
 
