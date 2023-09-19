@@ -1,0 +1,5 @@
+- CooldownController
+이 클래스를 통해서 스킬이나 공격같은 쿨타임이 있는 것들을 관리하고 있습니다
+UI를 통해서 몇초 남았는지 알려주고 싶어서 FillImage를 쓰고 싶은데 문제는
+이 클래스는 Guardian 안에 정의되어 있고 FillImage 같은 UI는 PlayerUIManager에 있어서
+이 관계를 어떻게 해야 할까 고민 중입니다. 보시게 되시면 선배님 생각을 말해주세용

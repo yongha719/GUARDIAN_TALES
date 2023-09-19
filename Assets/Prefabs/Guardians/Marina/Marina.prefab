@@ -101,13 +101,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b047ba1f2281234b96e44f66a807c2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bbracjji: 0
   guardianData: {fileID: 0}
-  <AttackDelay>k__BackingField: 0
-  <AdditionalSkillDelay>k__BackingField: 0
   AttackCoolDown:
     <Delay>k__BackingField: 0.1
+    CanUseImmediately: 0
+    hasCooldown: 0
   AdditionalSkillCoolDown:
     <Delay>k__BackingField: 5
+    CanUseImmediately: 1
+    hasCooldown: 1
+  Hook: {fileID: 8265490984208791778, guid: bb8cdcbbd3c2fb248a78b73343b2c172, type: 3}
+  hookRotationTime: 1
+  hookRotationSpeed: 0.3
+  hookRotationValue: 0.2
 --- !u!95 &5416701639257342273
 Animator:
   serializedVersion: 5

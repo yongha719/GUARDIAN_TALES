@@ -106,25 +106,34 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         }
     }
 
-    public virtual void OnPointerDown(PointerEventData eventData)
+    public void Press()
     {
         isPointerDown = true;
 
         UpdateImageColorByButtonState();
     }
 
-    public virtual void OnPointerUp(PointerEventData eventData)
+    public void Release()
     {
         isPointerDown = false;
 
         UpdateImageColorByButtonState();
     }
 
+    public virtual void OnPointerDown(PointerEventData eventData)
+    {
+        Press();
+    }
+
+    public virtual void OnPointerUp(PointerEventData eventData)
+    {
+        Release();
+    }
+
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
         isPointerInside = true;
 
-        OnMouseEnter();
         UpdateImageColorByButtonState();
     }
 

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,10 +55,25 @@ public abstract class Guardian : Entity
     {
         guardianData = GameManager.Instance.GuardianData;
 
+        AttackCoolDown.InitCoolTime();
+        AdditionalSkillCoolDown.InitCoolTime();
+
         base.Start();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         print("가디언");
+
+        AttackCoolDown.OnCoolDownReady += () =>
+        {
+            AttackPatternCount++;
+            Attack();
+        };
+
+        AdditionalSkillCoolDown.OnCoolDownReady += () =>
+        {
+            AdditionalSkill();
+            print("Additional Skill OnCoolDownReady");
+        };
     }
 
     protected virtual void FixedUpdate()
@@ -71,17 +87,15 @@ public abstract class Guardian : Entity
 
         spriteRenderer.flipX = isLeft;
         guardianData.PlayerWeapon.FlipX(isLeft);
-
-        AttackCoolDown.OnCooldownReady += () =>
-        {
-            AttackPatternCount++;
-            Attack();
-        };
     }
 
     protected abstract void Attack();
 
-    protected virtual void AdditionalSkill() { }
+    protected virtual void AdditionalSkill() {
+        AddtionalSkillAsync().Forget();
+    }
+
+    protected virtual async UniTaskVoid AddtionalSkillAsync() { }
 
     public bool TryAttack()
     {
@@ -110,7 +124,7 @@ public abstract class Guardian : Entity
 
         if (other.CompareTag("Enemy"))
         {
-            print("적 공격");
+            print("적 충돌");
         }
     }
 }

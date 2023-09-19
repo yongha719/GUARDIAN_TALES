@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: "\uB9C8\uB9AC\uB098"
   Hp:
-    value: 10000
+    value: 0
   Speed:
     value: 5
   AttackDamage:
@@ -22,5 +22,5 @@ MonoBehaviour:
   Armor:
     value: 150
   elementalAttribute: 1
-  PlayerWeapon: {fileID: 0}
+  PlayerWeapon: {fileID: 2250074826349234402, guid: ff8a1600288a88846a8f09920bc2f815, type: 3}
   <CriticalChance>k__BackingField: 7

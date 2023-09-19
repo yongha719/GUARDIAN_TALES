@@ -12,19 +12,35 @@ public enum AnimatorParameterType
     Trigger
 }
 
+public enum WeaponType
+{
+    OneHandedSword,
+    TwoHandedSword,
+    Rifle,
+    Bow,
+    Basket,
+    Staff,
+    Claw,
+    Shield
+}
+
 public abstract class Weapon : MonoBehaviour
 {
     [Header("Weapon")]
     protected GuardianData guardianData;
+
+    public WeaponType WeaponType;
+
+    public float AttackDamage;
+
+    [Space]
+    public CooldownController SkillCoolDown;
 
     [SerializeField]
     private string attackTriggerName = "Attack";
 
     [SerializeField]
     private string attackPatternCountName = "AttackPatternCount";
-
-    [Space]
-    public CooldownController SkillCoolDown;
 
     /// <summary>
     /// 공격 애니메이션 끝났을 때 콜백

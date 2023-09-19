@@ -10,7 +10,16 @@ public class GuardianData : EntityData
     [NonSerialized]
     public Guardian Guardian;
 
-    public Weapon PlayerWeapon;
+    private Weapon playerWeapon;
+    public Weapon PlayerWeapon
+    {
+        get => playerWeapon;
+
+        set
+        {
+
+        }
+    }
 
     public Vector3 Pos => Guardian.transform.position;
 

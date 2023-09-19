@@ -29,32 +29,21 @@ public class PlayerUIManager : MonoBehaviour
             guardian.TryAttack();
         };
 
-
-
         skillButton.OnPressed += () =>
         {
             if (guardian.TryUseSkill(out float coolTime))
             {
-                
+                print("Use Skill!");
             }
         };
-
 
         additionalSkillButton.SetActive(guardian.HasAdditionalSkill);
         additionalSkillButton.OnPressed += () =>
         {
             if (guardian.TryUseAdditionalSKill(out float coolTime))
             {
-                
+                print("Use Additional Skill!");
             }
         };
-    }
-
-    public async UniTask UpdateFillImage()
-    {
-        while (true)
-        {
-            await UniTask.NextFrame();
-        }
     }
 }
