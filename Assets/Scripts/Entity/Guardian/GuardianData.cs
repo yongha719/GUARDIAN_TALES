@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -17,9 +18,18 @@ public class GuardianData : EntityData
 
         set
         {
-
+            if (WeaponType == value.WeaponType)
+            {
+                Debug.Log("장착 가능");
+            }
+            else
+            {
+                Debug.Log("장착 불가능");
+            }
         }
     }
+
+    public WeaponType WeaponType;
 
     public Vector3 Pos => Guardian.transform.position;
 
@@ -48,14 +58,25 @@ public class GuardianData : EntityData
     public override void Init()
     {
         base.Init();
-        
+
         Guardian = FindObjectOfType<Guardian>();
     }
 
-    public void WeaponChange(Weapon weapon)
+    public void WeaponEquip(Weapon weapon)
     {
+        if (PlayerWeapon != null)
+        {
+            PlayerWeapon.UnEquip();
+        }
+
         PlayerWeapon = weapon;
-        
-        weapon.Init(this);
+        PlayerWeapon.Init(this);
+    }
+
+    public void WeaponUnEquip()
+    {
+        Destroy(PlayerWeapon.gameObject);
+
+        PlayerWeapon = null;
     }
 }

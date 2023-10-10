@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,6 +34,8 @@ public abstract class Weapon : MonoBehaviour
 
     public float AttackDamage;
 
+    public bool isEquiped => guardianData != null;
+
     [Space]
     public CooldownController SkillCoolDown;
 
@@ -65,50 +68,27 @@ public abstract class Weapon : MonoBehaviour
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         
         SkillCoolDown.InitCoolTime();
-    }
-
-
-    /// <summary>
-    /// 플레이어 스크립트에서 공격할 때 사용할 함수
-    /// </summary>
-    /// <param name="value">공격 패턴 카운트</param>
-    public void SetAttackAnimator(int value)
-    {
-        SetAnimatorParameter(AnimatorParameterType.Trigger, attackTriggerName);
-        SetAnimatorParameter(AnimatorParameterType.Integer, attackPatternCountName, value);
-    }
-
-    /// <summary>
-    /// 플레이어에서 호출할 Animator Parameter 설정할 함수
-    /// </summary>
-    public void SetAnimatorParameter(AnimatorParameterType parameterType, string parameterName,
-        object value = null)
-    {
-        if (parameterType != AnimatorParameterType.Trigger && value == null)
-            throw new NullReferenceException($"{nameof(SetAnimatorParameter)} Method : Parameter value is Null");
-
-        switch (parameterType)
+        SkillCoolDown.OnCoolDownReady += () =>
         {
-            case AnimatorParameterType.Float:
-                animator.SetFloat(parameterName, (float)value);
-                break;
-            case AnimatorParameterType.Integer:
-                animator.SetInteger(parameterName, (int)value);
-                break;
-            case AnimatorParameterType.Bool:
-                animator.SetBool(parameterName, (bool)value);
-                break;
-            case AnimatorParameterType.Trigger:
-                animator.SetTrigger(parameterName);
-                break;
-        }
+            Skill();
+        };
+    }
+
+    public void Equip(Guardian guardian)
+    {
+        guardianData = (GuardianData)guardian.Data;
+    }
+
+    public void UnEquip()
+    {
+        guardianData = null;
     }
 
     public abstract void Skill();
 
-    protected virtual IEnumerator SkillCoroutine()
+    protected virtual async UniTask SkillTask()
     {
-        yield return null;
+        await UniTask.Delay(1000);
     }
 
     public bool TryUseSkill()
@@ -155,6 +135,43 @@ public abstract class Weapon : MonoBehaviour
         OnEndAttackAnimation();
         ResetTrigger();
     }
+
+    /// <summary>
+    /// 플레이어 스크립트에서 공격할 때 사용할 함수
+    /// </summary>
+    /// <param name="value">공격 패턴 카운트</param>
+    public void SetAttackAnimator(int value)
+    {
+        SetAnimatorParameter(AnimatorParameterType.Trigger, attackTriggerName);
+        SetAnimatorParameter(AnimatorParameterType.Integer, attackPatternCountName, value);
+    }
+
+    /// <summary>
+    /// 플레이어에서 호출할 Animator Parameter 설정할 함수
+    /// </summary>
+    public void SetAnimatorParameter(AnimatorParameterType parameterType, string parameterName,
+        object value = null)
+    {
+        if (parameterType != AnimatorParameterType.Trigger && value == null)
+            throw new NullReferenceException($"{nameof(SetAnimatorParameter)} Method : Parameter value is Null");
+
+        switch (parameterType)
+        {
+            case AnimatorParameterType.Float:
+                animator.SetFloat(parameterName, (float)value);
+                break;
+            case AnimatorParameterType.Integer:
+                animator.SetInteger(parameterName, (int)value);
+                break;
+            case AnimatorParameterType.Bool:
+                animator.SetBool(parameterName, (bool)value);
+                break;
+            case AnimatorParameterType.Trigger:
+                animator.SetTrigger(parameterName);
+                break;
+        }
+    }
+
 
     #endregion
 }

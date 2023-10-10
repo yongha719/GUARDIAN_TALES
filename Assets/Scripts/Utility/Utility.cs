@@ -45,7 +45,7 @@ public static class Utility
         @object.gameObject.SetActive(value);
     }
 
-    public static T Random<T>(this IEnumerable<T> source)
+    public static T GetRandomElement<T>(this IEnumerable<T> source)
     {
         if (source == null)
             throw new ArgumentNullException("source is null");
@@ -55,7 +55,7 @@ public static class Utility
         return source.ElementAt(randomIndex);
     }
 
-    public static T Random<T>(this IEnumerable<T> source, out int index)
+    public static T GetRandomElement<T>(this IEnumerable<T> source, out int index)
     {
         if (source == null)
             throw new ArgumentNullException("source is null");

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,10 @@ public class Armada : Weapon
 
     public GameObject SkillEffect;
 
-    private Collider2D[] collider2Ds = new Collider2D[10];
+    private Collider2D[] rayCastColliders = new Collider2D[10];
 
     [Tooltip("스킬 쓸 때 ")]
     private float skillAttackDelay;
-    private WaitForSeconds skillWaitSeconds = new WaitForSeconds(0.2f);
 
 
     protected override void Start()
@@ -27,10 +27,10 @@ public class Armada : Weapon
 
     public override void Skill()
     {
-        StartCoroutine(SkillCoroutine());
+        SkillTask().Forget();
     }
 
-    protected override IEnumerator SkillCoroutine()
+    protected override async UniTask SkillTask()
     {
         for (int i = 0; i < 10; i++)
         {
@@ -38,7 +38,7 @@ public class Armada : Weapon
 
             if (enemies.Length > 0)
             {
-                var enemy = enemies.Random(out int index);
+                var enemy = enemies.GetRandomElement(out int index);
 
                 Vector3 enemyPos = enemy.transform.position;
 
@@ -50,7 +50,7 @@ public class Armada : Weapon
             
             print($"is there enemy : {enemies.Length > 0}");
 
-            yield return skillWaitSeconds;
+            await UniTask.Delay((int)(skillAttackDelay * 1000));
         }
     }
 }

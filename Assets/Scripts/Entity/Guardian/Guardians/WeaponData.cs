@@ -6,6 +6,8 @@ public class WeaponData
 {
     public Data<int> AttackDamage = new Data<int>();
 
+    public WeaponType WeaponType;
+
     [SerializeField]
     protected ElementalAttribute elementalAttribute;
 

@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 public class Marina : Guardian
 {
     [Header(nameof(Marina))]
-    private CapsuleCollider2D capsuleCollider;
+    private int m_bbracjji;
 
 
     protected override int minAttackCount => 1;
@@ -15,6 +15,7 @@ public class Marina : Guardian
 
     public override bool HasAdditionalSkill => true;
 
+    [Space]
 
     [SerializeField, Tooltip("추가 스킬 갈고리")]
     private GameObject anchor;
@@ -31,8 +32,6 @@ public class Marina : Guardian
     protected override void Start()
     {
         base.Start();
-
-        capsuleCollider = GetComponentInChildren<CapsuleCollider2D>();
     }
 
     protected override void Attack()

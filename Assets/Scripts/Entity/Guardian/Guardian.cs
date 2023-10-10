@@ -19,6 +19,13 @@ public abstract class Guardian : Entity
     [SerializeField]
     protected GuardianData guardianData;
 
+    private Weapon Weapon
+    {
+        get => guardianData.PlayerWeapon;
+
+        set => guardianData.PlayerWeapon = value;
+    }
+
     [Tooltip("몇번째 공격인지 나타냄")]
     protected int attackPatternCount;
 
@@ -41,6 +48,8 @@ public abstract class Guardian : Entity
 
     public virtual bool HasAdditionalSkill => false;
 
+    [Space]
+    [BoxHeader("Cool Down", 8)]
     public CooldownController AttackCoolDown = new();
 
     public CooldownController AdditionalSkillCoolDown = new();
