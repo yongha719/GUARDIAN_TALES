@@ -1,8 +1,6 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.Rendering;
+using System;
 
 public class Marina : Guardian
 {
@@ -16,7 +14,7 @@ public class Marina : Guardian
     public override bool HasAdditionalSkill => true;
 
     [Space]
-
+    [BoxHeader("추가 스킬", 4)]
     [SerializeField, Tooltip("추가 스킬 갈고리")]
     private GameObject anchor;
 
@@ -47,7 +45,7 @@ public class Marina : Guardian
 
     protected override async UniTaskVoid AddtionalSkillAsync()
     {
-        // 닻 축아래에 닻이 있는 구조
+        // 닻 축 자식으로 닻이 있는 구조
         var anchorAxis = Instantiate(this.anchor, transform.position, Quaternion.identity, transform);
 
         var anchor = anchorAxis.transform.GetChild(0);
@@ -70,8 +68,7 @@ public class Marina : Guardian
         }
 
         // TODO : 가장 가까운 적 찾아서 닻으로 공격
-        var nearestEnemy = GameManager.Instance.GetnearestEnemy();
-
+        var nearestEnemy = GameManager.Instance.GetNearestEnemy();
 
 
         Destroy(anchorAxis);

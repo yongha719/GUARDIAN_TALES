@@ -11,6 +11,7 @@ public class GuardianData : EntityData
     [NonSerialized]
     public Guardian Guardian;
 
+    [SerializeField]
     private Weapon playerWeapon;
     public Weapon PlayerWeapon
     {
@@ -58,8 +59,6 @@ public class GuardianData : EntityData
     public override void Init()
     {
         base.Init();
-
-        Guardian = FindObjectOfType<Guardian>();
     }
 
     public void WeaponEquip(Weapon weapon)

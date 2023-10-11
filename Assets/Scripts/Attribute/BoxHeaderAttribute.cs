@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 
 [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
@@ -6,7 +6,7 @@ public class BoxHeaderAttribute : PropertyAttribute
 {
     public string HeaderText { get; private set; } = "";
 
-    // ¸î ÁÙÀÇ ÇÊµå¸¦ ¹­À» °ÍÀÎÁö °áÁ¤
+    // ëª‡ ì¤„ì˜ í•„ë“œë¥¼ ë¬¶ì„ ê²ƒì¸ì§€ ê²°ì •
     public int FieldCount { get; private set; } = 0;
 
     public Color HeaderColor { get; set; } = Color.white;
@@ -14,15 +14,20 @@ public class BoxHeaderAttribute : PropertyAttribute
 
     public float Alpha { get; set; } = 0.4f;
 
-    // Ãß°¡ ÇÏ´Ü ³ôÀÌ
+    // ì¶”ê°€ í•˜ë‹¨ ë†’ì´
     public float BottomHeight { get; set; } = 0f;
 
-    // »ö»ó Á÷Á¢ °áÁ¤ÇÒ ¼ö ÀÖ°Ô ÇØÁÖ´Â »ö»ó ¼±ÅÃ µµ±¸ ³ëÃâ
-    //public bool UseColorPicker { get; set; } = false;
 
     public BoxHeaderAttribute(string header, int fieldCount)
     {
         HeaderText = header;
         FieldCount = fieldCount;
+    }
+
+    public BoxHeaderAttribute(string header, int fieldCount, Color boxColor)
+    {
+        HeaderText = header;
+        FieldCount = fieldCount;
+        BoxColor = boxColor;
     }
 }

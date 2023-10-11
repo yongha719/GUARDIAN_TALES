@@ -30,7 +30,7 @@ public class Armada : Weapon
         SkillTask().Forget();
     }
 
-    protected override async UniTask SkillTask()
+    protected override async UniTaskVoid SkillTask()
     {
         for (int i = 0; i < 10; i++)
         {

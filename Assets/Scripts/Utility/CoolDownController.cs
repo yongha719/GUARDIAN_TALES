@@ -67,7 +67,7 @@ public class CooldownController
     /// 쿨타임 됐는지 체크하고 OnCooldownReady 실행
     /// </summary>
     /// <returns></returns>
-    public bool IsCooldownFinished()
+    public bool TryCoolDownAction()
     {
         var coolTime = Time.time - lastCoolTime;
 

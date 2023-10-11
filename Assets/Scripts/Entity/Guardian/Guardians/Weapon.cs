@@ -57,7 +57,7 @@ public abstract class Weapon : MonoBehaviour
     {
         this.guardianData = guardianData;
     }
-    
+
     protected virtual void Start()
     {
         // Test
@@ -66,7 +66,7 @@ public abstract class Weapon : MonoBehaviour
 
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        
+
         SkillCoolDown.InitCoolTime();
         SkillCoolDown.OnCoolDownReady += () =>
         {
@@ -86,19 +86,15 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract void Skill();
 
-    protected virtual async UniTask SkillTask()
-    {
-        await UniTask.Delay(1000);
-    }
+    protected virtual async UniTaskVoid SkillTask() { }
 
     public bool TryUseSkill()
     {
         print("try use skill");
-        
-        if (SkillCoolDown.IsCooldownFinished())
+
+        if (SkillCoolDown.TryCoolDownAction())
         {
             print("use Skill");
-            Skill();
             return true;
         }
 

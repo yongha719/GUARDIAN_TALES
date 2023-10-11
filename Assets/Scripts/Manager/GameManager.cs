@@ -22,7 +22,7 @@ public class GameManager : Singleton<GameManager>
         GuardianData.Init();
     }
 
-    public Enemy GetnearestEnemy()
+    public Enemy GetNearestEnemy()
     {
         if(Enemies.Count == 0)
             return null;
@@ -43,7 +43,7 @@ public class GameManager : Singleton<GameManager>
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            print(GetnearestEnemy().name);
+            print(GetNearestEnemy().name);
         }
     }
 }

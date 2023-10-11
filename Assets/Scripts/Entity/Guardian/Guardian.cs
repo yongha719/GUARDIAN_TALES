@@ -49,7 +49,6 @@ public abstract class Guardian : Entity
     public virtual bool HasAdditionalSkill => false;
 
     [Space]
-    [BoxHeader("Cool Down", 8)]
     public CooldownController AttackCoolDown = new();
 
     public CooldownController AdditionalSkillCoolDown = new();
@@ -63,6 +62,7 @@ public abstract class Guardian : Entity
     protected override void Start()
     {
         guardianData = GameManager.Instance.GuardianData;
+        guardianData.Guardian = this;
 
         AttackCoolDown.InitCoolTime();
         AdditionalSkillCoolDown.InitCoolTime();
@@ -108,7 +108,7 @@ public abstract class Guardian : Entity
 
     public bool TryAttack()
     {
-        return AttackCoolDown.IsCooldownFinished();
+        return AttackCoolDown.TryCoolDownAction();
     }
 
 
@@ -123,7 +123,7 @@ public abstract class Guardian : Entity
     {
         coolTime = AdditionalSkillCoolDown.Delay;
 
-        return AdditionalSkillCoolDown.IsCooldownFinished();
+        return AdditionalSkillCoolDown.TryCoolDownAction();
     }
 
 

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,7 +11,7 @@ public class BoxHeaderAttributeDrawer : DecoratorDrawer
 {
     BoxHeaderAttribute Atr => attribute as BoxHeaderAttribute;
 
-    public override float GetHeight() => 35f; // 5f : Çì´õ <-> Ã¹¹øÂ° ÄÁÆ®·Ñ »çÀÌ °£°İ
+    public override float GetHeight() => 35f; // 5f : í—¤ë” <-> ì²«ë²ˆì§¸ ì»¨íŠ¸ë¡¤ ì‚¬ì´ ê°„ê²©
 
     public override void OnGUI(Rect position)
     {
@@ -20,10 +20,10 @@ public class BoxHeaderAttributeDrawer : DecoratorDrawer
         float boxHeight =
             headerHeight +
             oneControlHeight * (Atr.FieldCount)
-            + Atr.BottomHeight + 5f; // 5f : Çì´õ <-> Ã¹¹øÂ° ÄÁÆ®·Ñ »çÀÌ °£°İ
+            + Atr.BottomHeight + 5f; // 5f : í—¤ë” <-> ì²«ë²ˆì§¸ ì»¨íŠ¸ë¡¤ ì‚¬ì´ ê°„ê²©
 
         float X = position.x - 5f;
-        float Y = position.y + (GetHeight() - headerHeight - 5f); // 5f : Çì´õ <-> Ã¹¹øÂ° ÄÁÆ®·Ñ »çÀÌ °£°İ
+        float Y = position.y + (GetHeight() - headerHeight - 5f); // 5f : í—¤ë” <-> ì²«ë²ˆì§¸ ì»¨íŠ¸ë¡¤ ì‚¬ì´ ê°„ê²©
         float width = position.width + 5f;
 
         Rect headerRect = new Rect(X, Y, width, headerHeight);
@@ -33,26 +33,21 @@ public class BoxHeaderAttributeDrawer : DecoratorDrawer
         Color hCol = Atr.HeaderColor;
         Color bCol = Atr.BoxColor;
 
-        // »ö»ó º¸Á¤
         bCol = SetAlpha(bCol, Atr.Alpha);
         bCol = PlusRGB(bCol, -0.1f);
 
         // Header Small Box Color
         EditorGUI.DrawRect(headerRect, new Color(bCol.r, bCol.g, bCol.b, 0.5f));
 
-        // Content Box Color
-        // - ÇÊµå Ä«¿îÆ®°¡ Á¸ÀçÇÒ °æ¿ì
         if (Atr.FieldCount > 0)
         {
             EditorGUI.DrawRect(boxRect, bCol);
         }
 
-        // Header Style
         GUIStyle headerStyle = new GUIStyle(EditorStyles.boldLabel);
         headerStyle.normal.textColor = hCol;
         headerStyle.fontSize = 15;
 
-        // Header Label
         EditorGUI.LabelField(headerTextRect, Atr.HeaderText, headerStyle);
     }
 
