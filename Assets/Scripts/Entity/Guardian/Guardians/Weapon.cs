@@ -25,6 +25,7 @@ public enum WeaponType
     Shield
 }
 
+
 public abstract class Weapon : MonoBehaviour
 {
     [Header("Weapon")]

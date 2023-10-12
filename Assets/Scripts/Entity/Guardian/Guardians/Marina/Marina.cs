@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using System;
+using UnityEditor;
 
 public class Marina : Guardian
 {
@@ -15,17 +16,20 @@ public class Marina : Guardian
 
     [Space]
     [BoxHeader("추가 스킬", 4)]
-    [SerializeField, Tooltip("추가 스킬 갈고리")]
+    [SerializeField, Tooltip("추가 스킬 닻 프리팹")]
     private GameObject anchor;
 
     [SerializeField, Tooltip("닻 돌리고 있을 시간")]
-    private float anchorRotationTime;
+    private float timeToRotateAnchor;
 
     [SerializeField, Tooltip("닻 돌아가는 속도")]
     private float anchorRotationSpeed;
 
     [SerializeField, Tooltip("닻 돌아가는 회전값")]
     private float anchorRotationValue;
+
+    [WeaponEquip(WeaponType.OneHandedSword)]
+    public Weapon dawd;
 
     protected override void Start()
     {
@@ -58,9 +62,10 @@ public class Marina : Guardian
         {
             var elapsedTime = Time.time - startTime;
 
-            if (elapsedTime >= anchorRotationTime)
+            if (elapsedTime >= timeToRotateAnchor)
                 break;
 
+            // 축이 돌아가고 닻은 왼쪽으로 이동
             anchorAxis.transform.Rotate(0, 0, -anchorRotationSpeed);
             anchor.Translate(Vector2.left * (anchorRotationValue * Time.deltaTime));
 

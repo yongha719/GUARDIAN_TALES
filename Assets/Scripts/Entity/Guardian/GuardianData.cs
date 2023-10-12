@@ -11,8 +11,9 @@ public class GuardianData : EntityData
     [NonSerialized]
     public Guardian Guardian;
 
-    [SerializeField]
+    [SerializeField, WeaponEquip(WeaponType.OneHandedSword)]
     private Weapon playerWeapon;
+
     public Weapon PlayerWeapon
     {
         get => playerWeapon;

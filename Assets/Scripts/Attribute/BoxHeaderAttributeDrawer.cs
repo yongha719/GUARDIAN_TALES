@@ -9,9 +9,9 @@ using Color = UnityEngine.Color;
 [CustomPropertyDrawer(typeof(BoxHeaderAttribute))]
 public class BoxHeaderAttributeDrawer : DecoratorDrawer
 {
-    BoxHeaderAttribute Atr => attribute as BoxHeaderAttribute;
+    private BoxHeaderAttribute Atr => attribute as BoxHeaderAttribute;
 
-    public override float GetHeight() => 35f; // 5f : 헤더 <-> 첫번째 컨트롤 사이 간격
+    public float Height => 35f; // 5f : 헤더 <-> 첫번째 컨트롤 사이 간격
 
     public override void OnGUI(Rect position)
     {

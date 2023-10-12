@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-[System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+[System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = true, Inherited = false)]
 public class BoxHeaderAttribute : PropertyAttribute
 {
     public string HeaderText { get; private set; } = "";

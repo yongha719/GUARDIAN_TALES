@@ -101,8 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b047ba1f2281234b96e44f66a807c2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bbracjji: 0
-  guardianData: {fileID: 0}
+  guardianData: {fileID: 11400000, guid: 60cac2319488a104380700dad10aadad, type: 2}
   AttackCoolDown:
     <Delay>k__BackingField: 0.1
     CanUseImmediately: 0
@@ -111,10 +110,10 @@ MonoBehaviour:
     <Delay>k__BackingField: 5
     CanUseImmediately: 1
     hasCooldown: 1
-  Hook: {fileID: 8265490984208791778, guid: bb8cdcbbd3c2fb248a78b73343b2c172, type: 3}
-  hookRotationTime: 1
-  hookRotationSpeed: 0.3
-  hookRotationValue: 0.2
+  anchor: {fileID: 8265490984208791778, guid: bb8cdcbbd3c2fb248a78b73343b2c172, type: 3}
+  anchorRotationTime: 1
+  anchorRotationSpeed: 4
+  anchorRotationValue: 1
 --- !u!95 &5416701639257342273
 Animator:
   serializedVersion: 5
