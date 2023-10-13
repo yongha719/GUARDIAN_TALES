@@ -15,7 +15,7 @@ public class Marina : Guardian
     public override bool HasAdditionalSkill => true;
 
     [Space]
-    [BoxHeader("추가 스킬", 4)]
+    [BoxHeader("추가 스킬", 4, BottomHeight = 3f)]
     [SerializeField, Tooltip("추가 스킬 닻 프리팹")]
     private GameObject anchor;
 
@@ -27,9 +27,6 @@ public class Marina : Guardian
 
     [SerializeField, Tooltip("닻 돌아가는 회전값")]
     private float anchorRotationValue;
-
-    [WeaponEquip(WeaponType.OneHandedSword)]
-    public Weapon dawd;
 
     protected override void Start()
     {

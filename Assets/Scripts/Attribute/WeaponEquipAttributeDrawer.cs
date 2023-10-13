@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+// Editor 환경에서 Guardian 인스펙터에 Weapon을 할당할 때 Weapon Type이 다르면 장착하지 못하게 함
+
+
 [CustomPropertyDrawer(typeof(WeaponEquipAttribute), true)]
 public class WeaponEquipAttributeDrawer : PropertyDrawer
 {
@@ -10,16 +13,17 @@ public class WeaponEquipAttributeDrawer : PropertyDrawer
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        base.OnGUI(position, property, label);
+        EditorGUI.PropertyField(position, property, label, true);
 
-        if (property.objectReferenceValue == null)
-            return;
-
-        var weapon = property.objectReferenceValue as Weapon;
-
-        if(Atr.WeaponType != weapon.WeaponType)
+        if (property.objectReferenceValue != null)
         {
-            property.objectReferenceValue = null;
+            var weapon = property.objectReferenceValue as Weapon;
+
+            if (Atr.WeaponType != weapon.WeaponType)
+            {
+                property.objectReferenceValue = null;
+            }
         }
+
     }
 }
