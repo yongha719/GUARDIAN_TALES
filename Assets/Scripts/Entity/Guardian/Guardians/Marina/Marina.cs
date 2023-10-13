@@ -15,7 +15,7 @@ public class Marina : Guardian
     public override bool HasAdditionalSkill => true;
 
     [Space]
-    [BoxHeader("추가 스킬", 4, BottomHeight = 3f)]
+    [BoxHeader("추가 스킬", 4)]
     [SerializeField, Tooltip("추가 스킬 닻 프리팹")]
     private GameObject anchor;
 
@@ -36,7 +36,7 @@ public class Marina : Guardian
     protected override void Attack()
     {
         print("공격");
-        guardianData.PlayerWeapon.SetAttackAnimator(AttackPatternCount);
+        Weapon.SetAttackAnimator(AttackPatternCount);
     }
 
     protected override void AdditionalSkill()

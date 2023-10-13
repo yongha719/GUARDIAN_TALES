@@ -54,17 +54,8 @@ public abstract class Weapon : MonoBehaviour
     private Animator animator;
     protected SpriteRenderer spriteRenderer;
 
-    public void Init(GuardianData guardianData)
-    {
-        this.guardianData = guardianData;
-    }
-
     protected virtual void Start()
     {
-        // Test
-        guardianData = GameManager.Instance.GuardianData;
-        guardianData.PlayerWeapon = this;
-
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 

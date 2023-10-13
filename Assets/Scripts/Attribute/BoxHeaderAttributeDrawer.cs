@@ -51,11 +51,6 @@ public class BoxHeaderAttributeDrawer : DecoratorDrawer
         EditorGUI.LabelField(headerTextRect, Atr.HeaderText, headerStyle);
     }
 
-    Color PlusRGB(Color color, float rgb)
-    {
-        return new Color(color.r + rgb, color.g + rgb, color.b + rgb, color.a);
-    }
-
     Color SetAlpha(Color color, float alpha)
     {
         if (alpha > 1) alpha = 1f;
@@ -63,4 +58,10 @@ public class BoxHeaderAttributeDrawer : DecoratorDrawer
 
         return new Color(color.r, color.g, color.b, alpha);
     }
+
+    Color PlusRGB(Color color, float rgb)
+    {
+        return new Color(color.r + rgb, color.g + rgb, color.b + rgb, color.a);
+    }
+
 }

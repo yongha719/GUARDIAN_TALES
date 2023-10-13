@@ -11,28 +11,6 @@ public class GuardianData : EntityData
     [NonSerialized]
     public Guardian Guardian;
 
-    [SerializeField, WeaponEquip(WeaponType.OneHandedSword)]
-    private Weapon playerWeapon;
-
-    public Weapon PlayerWeapon
-    {
-        get => playerWeapon;
-
-        set
-        {
-            if (WeaponType == value.WeaponType)
-            {
-                Debug.Log("장착 가능");
-            }
-            else
-            {
-                Debug.Log("장착 불가능");
-            }
-        }
-    }
-
-    public WeaponType WeaponType;
-
     public Vector3 Pos => Guardian.transform.position;
 
     [field: SerializeField, Tooltip("크리티컬 확률")]
@@ -60,23 +38,5 @@ public class GuardianData : EntityData
     public override void Init()
     {
         base.Init();
-    }
-
-    public void WeaponEquip(Weapon weapon)
-    {
-        if (PlayerWeapon != null)
-        {
-            PlayerWeapon.UnEquip();
-        }
-
-        PlayerWeapon = weapon;
-        PlayerWeapon.Init(this);
-    }
-
-    public void WeaponUnEquip()
-    {
-        Destroy(PlayerWeapon.gameObject);
-
-        PlayerWeapon = null;
     }
 }

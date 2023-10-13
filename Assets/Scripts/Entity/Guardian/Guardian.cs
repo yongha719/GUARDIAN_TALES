@@ -19,12 +19,28 @@ public abstract class Guardian : Entity
     [SerializeField]
     protected GuardianData guardianData;
 
-    private Weapon Weapon
-    {
-        get => guardianData.PlayerWeapon;
+    [SerializeField, WeaponEquip(WeaponType.OneHandedSword)]
+    private Weapon weapon;
 
-        set => guardianData.PlayerWeapon = value;
+    public Weapon Weapon
+    {
+        get => weapon;
+
+        set
+        {
+            if (WeaponType == value.WeaponType)
+            {
+                weapon = value;
+            }
+            else
+            {
+                Debug.Log("장착 불가능");
+            }
+        }
     }
+
+    public WeaponType WeaponType;
+
 
     [Tooltip("몇번째 공격인지 나타냄")]
     protected int attackPatternCount;
@@ -64,6 +80,8 @@ public abstract class Guardian : Entity
         guardianData = GameManager.Instance.GuardianData;
         guardianData.Guardian = this;
 
+        Weapon.Equip(this);
+
         AttackCoolDown.InitCoolTime();
         AdditionalSkillCoolDown.InitCoolTime();
 
@@ -95,8 +113,27 @@ public abstract class Guardian : Entity
         bool isLeft = dir.x < 0;
 
         spriteRenderer.flipX = isLeft;
-        guardianData.PlayerWeapon.FlipX(isLeft);
+        Weapon.FlipX(isLeft);
     }
+
+    public void WeaponEquip(Weapon weapon)
+    {
+        if (Weapon != null)
+        {
+            Weapon.UnEquip();
+        }
+
+        Weapon = weapon;
+        Weapon.Equip(this);
+    }
+
+    public void WeaponUnEquip()
+    {
+        Destroy(Weapon.gameObject);
+
+        Weapon = null;
+    }
+
 
     protected abstract void Attack();
 
@@ -114,9 +151,9 @@ public abstract class Guardian : Entity
 
     public bool TryUseSkill(out float coolTime)
     {
-        coolTime = guardianData.PlayerWeapon.SkillCoolDown.Delay;
+        coolTime = Weapon.SkillCoolDown.Delay;
 
-        return guardianData.PlayerWeapon.TryUseSkill();
+        return Weapon.TryUseSkill();
     }
 
     public bool TryUseAdditionalSKill(out float coolTime)
