@@ -20,6 +20,9 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
+    /// <summary>
+    /// MoveDirType에서 Up, Down, Left, Right만 반환
+    /// </summary>
     public MoveDirType FourWayMoveDirType
     {
         get
@@ -60,15 +63,20 @@ public class InputManager : Singleton<InputManager>
     [Header("민감도"), Tooltip("민감도")]
     public float sensitivity = 3f;
 
-    [SerializeField] private KeyCode UpButtonKey;
-    [SerializeField] private KeyCode DownButtonKey;
-    [SerializeField] private KeyCode LeftButtonKey;
-    [SerializeField] private KeyCode RightButtonKey;
+    [Header("이동버튼 키 모음")]
+    [SerializeField] 
+    private KeyCode UpButtonKey;
+    [SerializeField] 
+    private KeyCode DownButtonKey;
+    [SerializeField] 
+    private KeyCode LeftButtonKey;
+    [SerializeField] 
+    private KeyCode RightButtonKey;
 
     [Space]
     [SerializeField, Tooltip("현재 눌린 이동 버튼")]
     private MovableButton curMovableButton;
-
+    
     public MovableButton CurMovableButton
     {
         set

@@ -77,8 +77,7 @@ public abstract class Guardian : Entity
 
     protected override void Start()
     {
-        guardianData = GameManager.Instance.GuardianData;
-        guardianData.Guardian = this;
+        guardianData.InitGuardian(this);
 
         Weapon.Equip(this);
 
@@ -108,7 +107,7 @@ public abstract class Guardian : Entity
         // Move
         var dir = InputManager.Instance.Dir;
 
-        transform.Translate(dir * (guardianData.Speed.Value * Time.deltaTime));
+        transform.Translate(dir * (guardianData.SpeedData * Time.deltaTime));
 
         bool isLeft = dir.x < 0;
 

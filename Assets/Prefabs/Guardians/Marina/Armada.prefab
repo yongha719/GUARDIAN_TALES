@@ -77,6 +77,7 @@ MonoBehaviour:
   attackPatternCountName: AttackPatternCount
   SkillRadius: 3
   SkillEffect: {fileID: 0}
+  skillDamageMultiply: 0
 --- !u!1 &2250074827257383801
 GameObject:
   m_ObjectHideFlags: 0

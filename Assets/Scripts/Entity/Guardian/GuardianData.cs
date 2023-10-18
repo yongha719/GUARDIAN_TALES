@@ -11,12 +11,16 @@ public class GuardianData : EntityData
     [NonSerialized]
     public Guardian Guardian;
 
+    private Weapon weapon => Guardian.Weapon;
+
     public Vector3 Pos => Guardian.transform.position;
 
     [field: SerializeField, Tooltip("크리티컬 확률")]
     public int CriticalChance { get; set; }
 
-    public int CriticalDamage => AttackDamage.Value * 2;
+    private int attackDamage => AttackDamageData.Value + weapon.AttackDamage;
+
+    public int CriticalDamage => attackDamage * 2;
 
     public event Action<int> OnCriticalAttack;
 
@@ -30,7 +34,7 @@ public class GuardianData : EntityData
                 return CriticalDamage;
             }
 
-            return AttackDamage.Value;
+            return attackDamage;
         }
     }
 
@@ -38,5 +42,10 @@ public class GuardianData : EntityData
     public override void Init()
     {
         base.Init();
+    }
+
+    public void InitGuardian(Guardian guardian)
+    {
+        Guardian = guardian;
     }
 }

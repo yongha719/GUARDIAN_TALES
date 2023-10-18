@@ -18,26 +18,26 @@ public class EntityData : ScriptableObject
 {
     public string Name;
     
-    public Data<int> Hp;
+    public Data<int> HpData;
 
-    public Data<int> Speed = new Data<int>();
+    public Data<int> SpeedData = new Data<int>();
 
-    public Data<int> AttackDamage = new Data<int>();
+    public Data<int> AttackDamageData = new Data<int>();
 
-    public Data<int> Armor = new Data<int>();
+    public Data<int> ArmorData = new Data<int>();
 
     [SerializeField]
     protected ElementalAttribute elementalAttribute;
 
     public ElementalAttribute ElementalAttribute => elementalAttribute;
 
-    public virtual int Damage => AttackDamage.Value;
+    public virtual int Damage => AttackDamageData.Value;
 
     public virtual void Init()
     {
-        Hp = new Data<int>((hp) =>
+        HpData = new Data<int>((hp) =>
         {
-            Hp.Value = (int)(Hp.Value * (100f / (100 + Armor.Value)));
+            HpData.Value = (int)(HpData.Value * (100f / (100 + ArmorData.Value)));
         });
     }
 }

@@ -31,6 +31,8 @@ public class Marina : Guardian
     protected override void Start()
     {
         base.Start();
+
+        print(guardianData.Damage - 40);
     }
 
     protected override void Attack()

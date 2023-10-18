@@ -17,6 +17,10 @@ public class Armada : Weapon
     [Tooltip("스킬 쓸 때 ")]
     private float skillAttackDelay;
 
+    [SerializeField, Tooltip("무기 데미지에 곱할 스킬 데미지")]
+    private float skillDamageMultiply;
+
+    private float skillDamage => skillDamageMultiply * (AttackDamage + guardianData.Damage);
 
     protected override void Start()
     {
@@ -38,16 +42,16 @@ public class Armada : Weapon
 
             if (enemies.Length > 0)
             {
-                var enemy = enemies.GetRandomElement(out int index);
+                var enemy = enemies.GetRandomElement(out int index).GetComponent<Enemy>();
 
                 Vector3 enemyPos = enemy.transform.position;
 
                 var effect = Instantiate(SkillEffect, enemyPos, Quaternion.identity);
-                // enemies[index].
-                
-                Destroy(effect, 2f);
+                enemy.Data.HpData -= guardianData.Damage;
+
+               Destroy(effect, 2f);
             }
-            
+
             print($"is there enemy : {enemies.Length > 0}");
 
             await UniTask.Delay((int)(skillAttackDelay * 1000));

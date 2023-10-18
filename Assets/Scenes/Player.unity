@@ -817,7 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7232b3922e19fa844bcd7bb35b6a0956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guardianData: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!50 &660748927
 Rigidbody2D:
   serializedVersion: 4
@@ -1915,7 +1915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7232b3922e19fa844bcd7bb35b6a0956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guardianData: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!50 &1186323267
 Rigidbody2D:
   serializedVersion: 4
@@ -2278,7 +2278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7232b3922e19fa844bcd7bb35b6a0956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guardianData: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!1 &1390787946
 GameObject:
   m_ObjectHideFlags: 0
@@ -2311,7 +2311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7232b3922e19fa844bcd7bb35b6a0956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guardianData: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!50 &1390787948
 Rigidbody2D:
   serializedVersion: 4
@@ -3013,6 +3013,10 @@ PrefabInstance:
       propertyPath: dawd
       value: 
       objectReference: {fileID: 5416701638727175092}
+    - target: {fileID: 5416701639257342300, guid: 9f123e1be4bd2234a8c4a3af790f9b9d, type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 2250074826349234402, guid: ff8a1600288a88846a8f09920bc2f815, type: 3}
     - target: {fileID: 5416701639257342300, guid: 9f123e1be4bd2234a8c4a3af790f9b9d, type: 3}
       propertyPath: timeToRotateAnchor
       value: 1

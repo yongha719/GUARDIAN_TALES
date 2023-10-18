@@ -33,7 +33,7 @@ public abstract class Weapon : MonoBehaviour
 
     public WeaponType WeaponType;
 
-    public float AttackDamage;
+    public int AttackDamage;
 
     public bool isEquiped => guardianData != null;
 

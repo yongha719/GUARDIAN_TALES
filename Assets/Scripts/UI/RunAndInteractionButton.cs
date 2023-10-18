@@ -35,12 +35,12 @@ public class RunAndInteractionButton : MyButton, IRunAndInteractionButton
 
         OnRunButtonDown += () =>
         {            
-            GameManager.Instance.GuardianData.Speed.Value = 12;
+            GameManager.Instance.GuardianData.SpeedData.Value = 12;
         };
         
         OnRunButtonUp += () =>
         {            
-            GameManager.Instance.GuardianData.Speed.Value = 5;
+            GameManager.Instance.GuardianData.SpeedData.Value = 5;
         };
     }
     

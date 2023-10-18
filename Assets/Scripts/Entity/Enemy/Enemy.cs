@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    public override EntityData Data { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public override EntityData Data { get => enemyData; set => enemyData = (EnemyData)value; }
 
     [Header(nameof(Enemy))]
     [SerializeField]
-    protected EnemyData guardianData;
+    protected EnemyData enemyData;
 }

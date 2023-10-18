@@ -20,6 +20,6 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void Hit(int damage, ElementalAttribute enemyElemental)
     {
-        Data.Hp.Value -= damage.ModifyDamage(Data.ElementalAttribute, enemyElemental);
+        Data.HpData.Value -= damage.ModifyDamage(Data.ElementalAttribute, enemyElemental);
     }
 }
