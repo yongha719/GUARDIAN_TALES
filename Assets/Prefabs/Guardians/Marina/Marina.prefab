@@ -102,6 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guardianData: {fileID: 11400000, guid: 60cac2319488a104380700dad10aadad, type: 2}
+  weapon: {fileID: 2250074826349234402, guid: ff8a1600288a88846a8f09920bc2f815, type: 3}
+  WeaponType: 0
   AttackCoolDown:
     <Delay>k__BackingField: 0.1
     CanUseImmediately: 0
@@ -111,7 +113,7 @@ MonoBehaviour:
     CanUseImmediately: 1
     hasCooldown: 1
   anchor: {fileID: 8265490984208791778, guid: bb8cdcbbd3c2fb248a78b73343b2c172, type: 3}
-  anchorRotationTime: 1
+  timeToRotateAnchor: 1
   anchorRotationSpeed: 4
   anchorRotationValue: 1
 --- !u!95 &5416701639257342273

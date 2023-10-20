@@ -15,10 +15,6 @@ public enum MoveDirType
     LeftUp
 }
 
-
-/// <summary>
-/// 
-/// </summary>
 public class MovableButton : MyButton
 {
     [Space]
@@ -49,7 +45,5 @@ public class MovableButton : MyButton
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
-    }
-
-  
+    }  
 }

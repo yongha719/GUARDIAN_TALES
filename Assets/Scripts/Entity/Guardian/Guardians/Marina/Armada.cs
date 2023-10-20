@@ -42,14 +42,14 @@ public class Armada : Weapon
 
             if (enemies.Length > 0)
             {
-                var enemy = enemies.GetRandomElement(out int index).GetComponent<Enemy>();
+                var enemy = enemies.GetRandomElement().GetComponent<Enemy>();
 
                 Vector3 enemyPos = enemy.transform.position;
 
-                var effect = Instantiate(SkillEffect, enemyPos, Quaternion.identity);
-                enemy.Data.HpData -= guardianData.Damage;
+                //var effect = Instantiate(SkillEffect, enemyPos, Quaternion.identity);
+                //Destroy(effect, 2f);
 
-               Destroy(effect, 2f);
+                enemy.Data.HpData -= guardianData.Damage;
             }
 
             print($"is there enemy : {enemies.Length > 0}");

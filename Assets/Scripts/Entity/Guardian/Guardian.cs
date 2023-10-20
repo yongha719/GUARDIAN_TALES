@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.Video;
 
 
 public abstract class Guardian : Entity
@@ -62,7 +60,7 @@ public abstract class Guardian : Entity
 
     protected virtual int maxAttackCount { get; }
 
-    public virtual bool HasAdditionalSkill => false;
+    public bool HasAdditionalSkill => this is IGuardianAdditionalSkill;
 
     [Space]
     public CooldownController AttackCoolDown = new();
@@ -95,11 +93,14 @@ public abstract class Guardian : Entity
             Attack();
         };
 
-        AdditionalSkillCoolDown.OnCoolDownReady += () =>
+        if (this is IGuardianAdditionalSkill additionalSkill)
         {
-            AdditionalSkill();
-            print("Additional Skill OnCoolDownReady");
-        };
+            AdditionalSkillCoolDown.OnCoolDownReady += () =>
+            {
+                additionalSkill.AdditionalSkill();
+                print("Additional Skill OnCoolDownReady");
+            };
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -136,7 +137,8 @@ public abstract class Guardian : Entity
 
     protected abstract void Attack();
 
-    protected virtual void AdditionalSkill() {
+    protected virtual void AdditionalSkill()
+    {
         AddtionalSkillAsync().Forget();
     }
 

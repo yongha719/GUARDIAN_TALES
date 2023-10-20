@@ -1,11 +1,10 @@
 using System;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 
-[CreateAssetMenu(fileName = "PlayerData", menuName = "Data/PlayerData")]
+[CreateAssetMenu(fileName = "GuardianData", menuName = "Data/GuardianData")]
 public class GuardianData : EntityData
 {
     [NonSerialized]
@@ -22,7 +21,7 @@ public class GuardianData : EntityData
 
     public int CriticalDamage => attackDamage * 2;
 
-    public event Action<int> OnCriticalAttack;
+    public event Action<int> OnCriticalAttack = _ => { };
 
     public override int Damage
     {

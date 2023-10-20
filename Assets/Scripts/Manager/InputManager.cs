@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class InputManager : Singleton<InputManager>
 {
@@ -64,19 +65,19 @@ public class InputManager : Singleton<InputManager>
     public float sensitivity = 3f;
 
     [Header("이동버튼 키 모음")]
-    [SerializeField] 
+    [SerializeField]
     private KeyCode UpButtonKey;
-    [SerializeField] 
+    [SerializeField]
     private KeyCode DownButtonKey;
-    [SerializeField] 
+    [SerializeField]
     private KeyCode LeftButtonKey;
-    [SerializeField] 
+    [SerializeField]
     private KeyCode RightButtonKey;
 
     [Space]
     [SerializeField, Tooltip("현재 눌린 이동 버튼")]
     private MovableButton curMovableButton;
-    
+
     public MovableButton CurMovableButton
     {
         set
@@ -96,33 +97,55 @@ public class InputManager : Singleton<InputManager>
     [Tooltip("눌린 이동 버튼이 있는지 체크")]
     public bool AnyButtonPressed;
 
-    private Dictionary<MoveDirType, bool> dirTypeToInputKey = new(8);
-
     private Action InputMovableKeyAction = () => { };
+
+    private Dictionary<MoveDirType, (Func<bool> pressKey, Func<bool> upKey)> dirTypeToInputKeyFuncs = new(8);
 
     private void Start()
     {
-        dirTypeToInputKey.Add(MoveDirType.Up, Input.GetKey(UpButtonKey));
-        dirTypeToInputKey.Add(MoveDirType.Down, Input.GetKey(DownButtonKey));
-        dirTypeToInputKey.Add(MoveDirType.Left, Input.GetKey(LeftButtonKey));
-        dirTypeToInputKey.Add(MoveDirType.Right, Input.GetKey(RightButtonKey));
+        dirTypeToInputKeyFuncs.Add(MoveDirType.Up, GetKeyFunc(UpButtonKey));
+        dirTypeToInputKeyFuncs.Add(MoveDirType.Down, GetKeyFunc(DownButtonKey));
+        dirTypeToInputKeyFuncs.Add(MoveDirType.Left, GetKeyFunc(LeftButtonKey));
+        dirTypeToInputKeyFuncs.Add(MoveDirType.Right, GetKeyFunc(RightButtonKey));
 
-        dirTypeToInputKey.Add(MoveDirType.LeftUp, Input.GetKey(UpButtonKey) && Input.GetKey(LeftButtonKey));
-        dirTypeToInputKey.Add(MoveDirType.LeftDown, Input.GetKey(DownButtonKey) && Input.GetKey(LeftButtonKey));
-        dirTypeToInputKey.Add(MoveDirType.RightUp, Input.GetKey(UpButtonKey) && Input.GetKey(RightButtonKey));
-        dirTypeToInputKey.Add(MoveDirType.RightDown, Input.GetKey(DownButtonKey) && Input.GetKey(RightButtonKey));
+        dirTypeToInputKeyFuncs.Add(MoveDirType.LeftUp, GetKeyFuncs(UpButtonKey, LeftButtonKey));
+        dirTypeToInputKeyFuncs.Add(MoveDirType.LeftDown, GetKeyFuncs(DownButtonKey, LeftButtonKey));
+        dirTypeToInputKeyFuncs.Add(MoveDirType.RightUp, GetKeyFuncs(UpButtonKey, RightButtonKey));
+        dirTypeToInputKeyFuncs.Add(MoveDirType.RightDown, GetKeyFuncs(DownButtonKey, RightButtonKey));
+    }
+
+    private (Func<bool> pressKey, Func<bool> upKey) GetKeyFunc(KeyCode keyCode)
+    {
+        return (() => Input.GetKey(keyCode), () => Input.GetKeyUp(keyCode));
+    }
+
+    private (Func<bool> pressKey, Func<bool> upKey) GetKeyFuncs(KeyCode keyCode1, KeyCode keyCode2)
+    {
+        return (() => Input.GetKey(keyCode1) && Input.GetKey(keyCode2), () => Input.GetKeyUp(keyCode1) || Input.GetKeyUp(keyCode2));
     }
 
     public void PushMovableButton(MovableButton button)
     {
+        print(button.name);
+
         InputMovableKeyAction += () =>
         {
-            if (dirTypeToInputKey[button.MoveDirType])
+            // 버튼의 이동 방향으로 Input 액션들을 가져옴
+            var (pressKey, upKey) = dirTypeToInputKeyFuncs[button.MoveDirType];
+
+            if (pressKey())
             {
                 print("input key");
 
-                OnPressMovableButtonEvent(button);
                 button.Press();
+
+                return;
+            }
+
+            if (upKey())
+            {
+                button.Release();
+                AnyButtonPressed = false;
 
                 return;
             }

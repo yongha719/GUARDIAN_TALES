@@ -18,10 +18,6 @@ public class CooldownController
 
     private float lastCoolTime;
 
-    private bool hasFillImage;
-
-    private Image fillImage;
-
     public float RemainingCooldown
     {
         get
@@ -35,32 +31,20 @@ public class CooldownController
 
     public float RemainingCooldownClamp01 => Utility.Clamp01(0, Delay, RemainingCooldown);
 
+    /// <summary>
+    /// 쿨타임이 됐을 때 실행할 이벤트
+    /// </summary>
     public event Action OnCoolDownReady = () => { };
 
 
     public CooldownController()
     {
-    }
-
-    public void InitFillImage(Image image)
-    {
-        hasFillImage = true;
-        fillImage = image;
+       
     }
 
     public void InitCoolTime()
     {
         lastCoolTime = CanUseImmediately ? -Delay : Time.time;
-    }
-
-    private async UniTaskVoid FillImageUpdateAsync()
-    {
-        while (RemainingCooldown != 0)
-        {
-            fillImage.fillAmount = RemainingCooldownClamp01;
-
-            await UniTask.NextFrame();
-        }
     }
 
     /// <summary>
