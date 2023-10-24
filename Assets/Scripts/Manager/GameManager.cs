@@ -34,6 +34,11 @@ public class GameManager : Singleton<GameManager>
         return Enemies.OrderBy(enemy => Vector3.Distance(GuardianData.Guardian.transform.position, enemy.transform.position)).First();
     }
 
+    public Vector3 GetNearestEnemyPosition()
+    {
+        return GetNearestEnemy().transform.position;
+    }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))

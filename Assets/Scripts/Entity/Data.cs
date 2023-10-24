@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
-    
-[Serializable]
-public class Data<T> where T : struct, IComparable, IConvertible
-{
-    public event Action<T> OnChange = _ => { };
 
+
+// .Net 버전이 7 이상이면 INumber 인터페이스를 상속받아 연산할 수 있음
+// https://learn.microsoft.com/ko-kr/dotnet/api/system.numerics.inumber-1?view=net-7.0
+
+[Serializable]
+public class Data<T> where T : struct
+{
     [SerializeField]
     private T value;
 
@@ -20,6 +22,8 @@ public class Data<T> where T : struct, IComparable, IConvertible
             OnChange(this.value);
         }
     }
+    
+    public event Action<T> OnChange = _ => { };
 
     public Data() { }
 

@@ -39,6 +39,11 @@ public abstract class Guardian : Entity
 
     public WeaponType WeaponType;
 
+    [Tooltip("공격할 때 자동 이동가능한 거리")]
+    public float AutoMovableDistanceAttacking;
+
+    /// <summary> 근접 유닛인지 </summary>
+    public virtual bool IsProximityUnit { get; }
 
     [Tooltip("몇번째 공격인지 나타냄")]
     protected int attackPatternCount;
@@ -63,6 +68,7 @@ public abstract class Guardian : Entity
     public bool HasAdditionalSkill => this is IGuardianAdditionalSkill;
 
     [Space]
+    [Header("CoolDown Controllers")]
     public CooldownController AttackCoolDown = new();
 
     public CooldownController AdditionalSkillCoolDown = new();
@@ -93,11 +99,11 @@ public abstract class Guardian : Entity
             Attack();
         };
 
-        if (this is IGuardianAdditionalSkill additionalSkill)
+        if (HasAdditionalSkill)
         {
             AdditionalSkillCoolDown.OnCoolDownReady += () =>
             {
-                additionalSkill.AdditionalSkill();
+                AdditionalSkill();
                 print("Additional Skill OnCoolDownReady");
             };
         }
@@ -164,6 +170,26 @@ public abstract class Guardian : Entity
         return AdditionalSkillCoolDown.TryCoolDownAction();
     }
 
+    /// <summary>
+    /// 근접 공격 유닛들이 공격할 때 가까운 거리에 있는 적에게 이동함
+    /// 
+    /// 두가지 이동 방법
+    /// 
+    /// 1. 일정 거리내에 적이 있으면 바로 적앞까지 전진
+    /// 2. 거리가 멀면 적 쪽으로 조금씩 전진
+    /// 
+    /// </summary>
+    protected void MoveToNearestEnemy()
+    {
+        var nearestEnemy = GameManager.Instance.GetNearestEnemyPosition();
+
+        var enemyDistance = Vector3.Distance(transform.position, nearestEnemy);
+
+        if (enemyDistance < 3)
+        {
+            Move(nearestEnemy, 0.2f);
+        }
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {

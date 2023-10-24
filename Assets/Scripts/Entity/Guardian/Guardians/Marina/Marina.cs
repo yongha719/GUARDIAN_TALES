@@ -1,19 +1,19 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using System;
-using UnityEditor;
 
 public class Marina : Guardian, IGuardianAdditionalSkill
 {
-    [Header(nameof(Marina))]
-    private int m_bbracjji;
     protected override int minAttackCount => 1;
     protected override int maxAttackCount => 2;
 
     public int AdditionalSkillDamage => Data.Damage * 3;
 
-    [Space(20f, order = 0)]
-    [BoxHeader("추가 스킬", 4)]
+    public override bool IsProximityUnit => true;
+
+    [Space(15f)]
+    [Header("Marina============================")]
+
+    [Header("추가 스킬")]
     [SerializeField, Tooltip("추가 스킬 닻 프리팹")]
     private GameObject anchor;
 
@@ -36,6 +36,8 @@ public class Marina : Guardian, IGuardianAdditionalSkill
     protected override void Attack()
     {
         print("공격");
+
+        MoveToNearestEnemy();
         Weapon.SetAttackAnimator(AttackPatternCount);
     }
 
@@ -79,6 +81,7 @@ public class Marina : Guardian, IGuardianAdditionalSkill
         Destroy(anchorAxis);
     }
 
+    // 마리나가 바라보는 방향을 기준으로 닻의 위치를 정함
     private void SetAnchorPositionAndRotate(Transform anchor)
     {
         var moveDir = InputManager.Instance.PlayerMoveDirType;

@@ -1,18 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public static class EntityUtility
 {
-    private static readonly Dictionary<ElementalAttribute, Dictionary<ElementalAttribute, float>>
-        elementalDamageMultiplier = new();
+    private static Dictionary<ElementalAttribute, Dictionary<ElementalAttribute, float>>
+        elementalDamageMultiplier = new(12);
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Init()
     {
         for (var i = 0; i < (int)ElementalAttribute.MAX; i++)
-            elementalDamageMultiplier[(ElementalAttribute)i] = new();
+            elementalDamageMultiplier[(ElementalAttribute)i] = new(2);
 
 
         AddElemental(ElementalAttribute.Fire, ElementalAttribute.Water, true);

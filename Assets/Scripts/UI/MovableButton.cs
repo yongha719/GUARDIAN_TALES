@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 
 public enum MoveDirType
 {
+    None = 0,
     Up,
     RightUp,
     Right,

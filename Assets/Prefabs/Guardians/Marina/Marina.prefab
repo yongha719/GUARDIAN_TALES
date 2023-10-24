@@ -104,6 +104,7 @@ MonoBehaviour:
   guardianData: {fileID: 11400000, guid: 60cac2319488a104380700dad10aadad, type: 2}
   weapon: {fileID: 2250074826349234402, guid: ff8a1600288a88846a8f09920bc2f815, type: 3}
   WeaponType: 0
+  AutoMovableDistanceAttacking: 3
   AttackCoolDown:
     <Delay>k__BackingField: 0.1
     CanUseImmediately: 0
