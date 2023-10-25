@@ -150,14 +150,11 @@ public class InputManager : Singleton<InputManager>
 
             var moveType = GetMoveType(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-            print(moveType);
-
             if (moveType == MoveDirType.None)
                 continue;
 
-            MovableButton movableButton = movableButtonsDic[moveType];
+            var movableButton = movableButtonsDic[moveType];
                     
-            print($"Press Key : {moveType}");
             movableButton.Press();
         }
     }
@@ -168,10 +165,8 @@ public class InputManager : Singleton<InputManager>
 
         InputMovableKeyAction += () =>
         {
-            // 버튼의 이동 방향으로 Input 액션들을 가져옴
-            var upKey = dirTypeToInputKeyFuncs[button.MoveDirType];
-
-            if (upKey())
+            // 버튼의 이동 방향으로 Input.GetKeyUp Func를 가져옴
+            if (dirTypeToInputKeyFuncs[button.MoveDirType]())
             {
                 button.Release();
                 AnyButtonPressed = false;

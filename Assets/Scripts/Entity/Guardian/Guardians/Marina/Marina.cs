@@ -44,13 +44,19 @@ public class Marina : Guardian, IGuardianAdditionalSkill
 
     void IGuardianAdditionalSkill.AdditionalSkill()
     {
-        AddtionalSkillAsync().Forget();
+        IGuardianAdditionalSkill additionalSkill = this;
+
+        additionalSkill.AddtionalSkillAsync().Forget();
+
+        print("Excute AdditionalSkill Method");
     }
 
     async UniTaskVoid IGuardianAdditionalSkill.AddtionalSkillAsync()
     {
+        // TODO : 닻 스크립트만들고 로직 이관하기
         // 닻 축 자식으로 닻이 있는 구조
         var anchorAxis = Instantiate(this.anchor, transform.position, Quaternion.identity, transform);
+        print($"생성 : {anchorAxis.name}");
 
         var anchor = anchorAxis.transform.GetChild(0);
 
@@ -74,6 +80,10 @@ public class Marina : Guardian, IGuardianAdditionalSkill
 
         // TODO : 가장 가까운 적 찾아서 닻으로 공격
         var nearestEnemy = GameManager.Instance.GetNearestEnemy();
+
+        Move(nearestEnemy.transform.position, 0.1f);
+
+        await UniTask.Delay(100);
 
         print($"닻으로 공격한 적 : {nearestEnemy.name}");
         nearestEnemy.Data.HpData -= AdditionalSkillDamage;

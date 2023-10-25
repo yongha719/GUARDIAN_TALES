@@ -99,11 +99,13 @@ public abstract class Guardian : Entity
             Attack();
         };
 
-        if (HasAdditionalSkill)
+        if (this is IGuardianAdditionalSkill additionalSkill)
         {
+            print("추가 스킬 이벤트");
+
             AdditionalSkillCoolDown.OnCoolDownReady += () =>
             {
-                AdditionalSkill();
+                additionalSkill.AdditionalSkill();
                 print("Additional Skill OnCoolDownReady");
             };
         }
@@ -142,13 +144,6 @@ public abstract class Guardian : Entity
 
 
     protected abstract void Attack();
-
-    protected virtual void AdditionalSkill()
-    {
-        AddtionalSkillAsync().Forget();
-    }
-
-    protected virtual async UniTaskVoid AddtionalSkillAsync() { }
 
     public bool TryAttack()
     {

@@ -65,7 +65,9 @@ public class Data<T> where T : struct
             dynamic value = data.value;
             dynamic otherValue = other;
 
-            return value * otherValue;
+            data.value = value * otherValue;
+
+            return data;
         }
         else
         {
@@ -80,7 +82,9 @@ public class Data<T> where T : struct
             dynamic value = data.value;
             dynamic otherValue = other;
 
-            return value + otherValue;
+            data.value = value + otherValue;
+
+            return data;
         }
         else
         {
@@ -95,7 +99,9 @@ public class Data<T> where T : struct
             dynamic value = data.value;
             dynamic otherValue = other;
 
-            return value - otherValue;
+            data.value = value - otherValue;
+
+            return data;
         }
         else
         {
@@ -111,7 +117,9 @@ public class Data<T> where T : struct
             dynamic value = data.value;
             dynamic otherValue = other;
 
-            return value / otherValue;
+            data.value = value / otherValue;
+
+            return data;
         }
         else
         {

@@ -36,7 +36,7 @@ public abstract class Entity : MonoBehaviour
         MoveAsync(target, duration).Forget();
     }
 
-    private async UniTaskVoid MoveAsync(Vector3 target, float duration)
+    protected async UniTaskVoid MoveAsync(Vector3 target, float duration)
     {
         var runTime = 0f;
 
@@ -57,7 +57,7 @@ public abstract class Entity : MonoBehaviour
         MoveAsync(target, duration).Forget();
     }
 
-    private async UniTaskVoid MoveAsync(Transform target, float duration)
+    protected async UniTaskVoid MoveAsync(Transform target, float duration)
     {
         var runTime = 0f;
 
