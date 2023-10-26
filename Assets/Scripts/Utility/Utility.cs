@@ -19,6 +19,20 @@ public static class Utility
             value = min;
     }
 
+    public static void WrapValue(this int value, int min, int max)
+    {
+        if (value < min)
+            value = max;
+
+        if (value > max)
+            value = min;
+    }
+
+    public static void eq(this int dada)
+    {
+        dada = 9999;
+    }
+
     /// <summary>
     /// 주어진 value 값을 min과 max 사이의 범위로 클램핑한 후, 그 값을 0과 1 사이의 값으로 정규화함
     /// </summary>

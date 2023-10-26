@@ -35,7 +35,27 @@ public abstract class Weapon : MonoBehaviour
 
     public int AttackDamage;
 
-    public bool isEquiped => guardianData != null;
+    public bool IsEquiped => guardianData != null;
+
+    [Tooltip("몇번째 공격인지 나타냄")]
+    protected int attackPatternCount;
+
+    protected int AttackPatternCount
+    {
+        get => attackPatternCount;
+
+        set
+        {
+            attackPatternCount = value;
+            Utility.WrapValue(ref attackPatternCount, minAttackCount, maxAttackCount);
+        }
+    }
+
+    [field: SerializeField]
+    protected virtual int minAttackCount { get; set; }
+
+    [field: SerializeField]
+    protected virtual int maxAttackCount { get; set; }
 
     [Space]
     public CooldownController SkillCoolDown;
@@ -75,6 +95,10 @@ public abstract class Weapon : MonoBehaviour
     {
         guardianData = null;
     }
+
+    public abstract void Attack();
+
+    protected virtual async UniTask AttackAsync() { }
 
     public abstract void Skill();
 

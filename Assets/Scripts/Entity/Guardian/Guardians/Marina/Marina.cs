@@ -15,9 +15,7 @@ public class Marina : Guardian, IGuardianAdditionalSkill
 
     [Header("추가 스킬")]
     [SerializeField, Tooltip("추가 스킬 닻 프리팹")]
-    private GameObject anchor;
-
-    public MarinaAnchor test;
+    private MarinaAnchor anchor;
 
     [SerializeField, Tooltip("닻 돌리고 있을 시간")]
     private float timeToRotateAnchor;
@@ -51,7 +49,7 @@ public class Marina : Guardian, IGuardianAdditionalSkill
     {
         // TODO : 닻 스크립트만들고 로직 이관하기
         // 닻 축 자식으로 닻이 있는 구조
-        var anchorAxis = Instantiate(test, transform.position, Quaternion.identity, transform);
+        var anchorAxis = Instantiate(this.anchor, transform.position, Quaternion.identity, transform);
 
         var anchor = anchorAxis.transform.GetChild(0);
 

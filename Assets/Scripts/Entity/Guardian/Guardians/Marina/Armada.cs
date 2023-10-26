@@ -1,9 +1,11 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// 마리나 전용무기 \
+/// 한손검 \
+/// 수속성
+/// </summary>
 public class Armada : Weapon
 {
     [Space]
@@ -56,5 +58,9 @@ public class Armada : Weapon
 
             await UniTask.Delay((int)(skillAttackDelay * 1000));
         }
+    }
+
+    public override void Attack()
+    {
     }
 }

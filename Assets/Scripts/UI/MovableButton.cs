@@ -27,24 +27,4 @@ public class MovableButton : MyButton
         
         InputManager.Instance.PushMovableButton(this);
     }
-    
-    public override void OnPointerDown(PointerEventData eventData)
-    {
-        base.OnPointerDown(eventData);
-    }
-
-    public override void OnPointerUp(PointerEventData eventData)
-    {
-        base.OnPointerUp(eventData);
-    }
-
-    public override void OnPointerMove(PointerEventData eventData)
-    {
-        base.OnPointerMove(eventData);
-    }
-
-    public override void OnPointerExit(PointerEventData eventData)
-    {
-        base.OnPointerExit(eventData);
-    }  
 }

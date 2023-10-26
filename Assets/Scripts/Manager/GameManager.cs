@@ -25,6 +25,14 @@ public class GameManager : Singleton<GameManager>
         GuardianData.Init();
     }
 
+    private void Start()
+    {
+        var @int = 10;
+        @int.eq();
+
+        print(@int);
+    }
+
 
     public Enemy GetNearestEnemy()
     {
