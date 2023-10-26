@@ -78,12 +78,10 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract void Skill();
 
-    protected virtual async UniTaskVoid SkillTask() { }
+    protected virtual async UniTaskVoid SkillAsync() { }
 
     public bool TryUseSkill()
     {
-        print("try use skill");
-
         if (SkillCoolDown.TryCoolDownAction())
         {
             print("use Skill");

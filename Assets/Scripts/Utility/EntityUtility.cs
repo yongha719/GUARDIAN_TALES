@@ -41,6 +41,8 @@ public static class EntityUtility
     /// <summary>
     /// 속성별 데미지 배율을 계산함
     /// 공격받는 입장에서 계산된 데미지임
+    /// 
+    /// 공격하는 Entity의 Damage에서 사용
     /// </summary>
     // 화 -> 지 -> 수 -> 화
     // 광 -> 암 -> 무 -> 광

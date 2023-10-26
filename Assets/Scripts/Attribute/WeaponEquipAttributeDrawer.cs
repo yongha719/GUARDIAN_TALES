@@ -19,9 +19,10 @@ public class WeaponEquipAttributeDrawer : PropertyDrawer
         {
             var weapon = property.objectReferenceValue as Weapon;
 
-            if (Atr.WeaponType != weapon.WeaponType)
+            foreach (var weaponType in Atr.WeaponTypes)
             {
-                property.objectReferenceValue = null;
+                if (weaponType != weapon.WeaponType)
+                    property.objectReferenceValue = null;
             }
         }
 

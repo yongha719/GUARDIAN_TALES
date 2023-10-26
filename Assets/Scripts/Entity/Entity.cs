@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using Cysharp.Threading.Tasks;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 public abstract class Entity : MonoBehaviour
 {
@@ -25,11 +26,22 @@ public abstract class Entity : MonoBehaviour
     }
 
 
-    public virtual void Hit(int damage, ElementalAttribute enemyElemental)
+    public virtual void Hit(in Entity entity)
     {
-        Data.HpData -= damage.ModifyDamage(Data.ElementalAttribute, enemyElemental);
+        Data.HpData -= entity.Data.Damage.ModifyDamage(Data.ElementalAttribute, entity.Data.ElementalAttribute);
     }
 
+    public virtual void Hit(in Entity entity, float damageMultiply)
+    {
+        int damage = (int)(entity.Data.Damage * damageMultiply);
+
+        Data.HpData -= damage.ModifyDamage(Data.ElementalAttribute, entity.Data.ElementalAttribute);
+    }
+
+    public virtual void Hit(int damage)
+    {
+        Data.HpData -= damage;
+    }
 
     public void Move(Vector3 target, float duration)
     {
@@ -52,8 +64,6 @@ public abstract class Entity : MonoBehaviour
 
     public void Move(Transform target, float duration)
     {
-        print("move");
-
         MoveAsync(target, duration).Forget();
     }
 

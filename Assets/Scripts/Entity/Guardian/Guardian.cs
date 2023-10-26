@@ -91,7 +91,6 @@ public abstract class Guardian : Entity
         base.Start();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        print("가디언");
 
         AttackCoolDown.OnCoolDownReady += () =>
         {
@@ -101,12 +100,9 @@ public abstract class Guardian : Entity
 
         if (this is IGuardianAdditionalSkill additionalSkill)
         {
-            print("추가 스킬 이벤트");
-
             AdditionalSkillCoolDown.OnCoolDownReady += () =>
             {
                 additionalSkill.AdditionalSkill();
-                print("Additional Skill OnCoolDownReady");
             };
         }
     }
@@ -116,7 +112,7 @@ public abstract class Guardian : Entity
         // Move
         var dir = InputManager.Instance.Dir;
 
-        transform.Translate(dir * (guardianData.SpeedData * Time.deltaTime));
+        //transform.Translate(dir * (guardianData.SpeedData * Time.deltaTime));
 
         bool isLeft = dir.x < 0;
 
@@ -188,11 +184,10 @@ public abstract class Guardian : Entity
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        print($"{other.name} : 감지");
-
-        if (other.CompareTag("Enemy"))
+        if (other.TryGetComponent(out Enemy enemy))
         {
-            print("적 충돌");
+            // 충돌 데미지라 약함
+            Hit(enemy);
         }
     }
 }

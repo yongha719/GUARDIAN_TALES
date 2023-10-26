@@ -114,6 +114,7 @@ MonoBehaviour:
     CanUseImmediately: 1
     hasCooldown: 1
   anchor: {fileID: 8265490984208791778, guid: bb8cdcbbd3c2fb248a78b73343b2c172, type: 3}
+  test: {fileID: 2936632720140749099, guid: bb8cdcbbd3c2fb248a78b73343b2c172, type: 3}
   timeToRotateAnchor: 1
   anchorRotationSpeed: 4
   anchorRotationValue: 1

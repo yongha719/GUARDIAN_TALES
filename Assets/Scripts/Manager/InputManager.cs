@@ -161,8 +161,6 @@ public class InputManager : Singleton<InputManager>
 
     public void PushMovableButton(MovableButton button)
     {
-        print(button.name);
-
         InputMovableKeyAction += () =>
         {
             // 버튼의 이동 방향으로 Input.GetKeyUp Func를 가져옴

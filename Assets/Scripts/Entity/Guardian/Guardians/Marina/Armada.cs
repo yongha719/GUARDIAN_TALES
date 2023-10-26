@@ -26,15 +26,15 @@ public class Armada : Weapon
     {
         base.Start();
 
-        SaveManager.SaveWeapon(spriteRenderer.sprite.texture, name);
+        SaveManager.SaveWeaponImage(spriteRenderer.sprite.texture, name);
     }
 
     public override void Skill()
     {
-        SkillTask().Forget();
+        SkillAsync().Forget();
     }
 
-    protected override async UniTaskVoid SkillTask()
+    protected override async UniTaskVoid SkillAsync()
     {
         for (int i = 0; i < 10; i++)
         {

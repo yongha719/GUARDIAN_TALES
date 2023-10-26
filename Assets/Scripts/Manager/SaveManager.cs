@@ -8,10 +8,12 @@ public class SaveManager
 {
     /// <summary>
     /// 가디언이 장착한 무기 이미지 저장
+    /// 
+    /// 이미지 저장 테스트용임
     /// </summary>
     /// <param name="texture"></param>
     /// <param name="path"></param>
-    public static void SaveWeapon(Texture2D texture, string guardianName)
+    public static void SaveWeaponImage(Texture2D texture, string guardianName)
     {
 #if UNITY_ANDROID
         // 안드로이드 권한 요청
@@ -38,7 +40,5 @@ public class SaveManager
         
         
         File.WriteAllBytes(Path.Combine(filePath, $"{guardianName}.png"), bytes);
-
-        Debug.Log($"Success Save\nDirectory : {filePath}");
     }
 }
