@@ -3,7 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public enum AnimatorParameterType
 {
@@ -57,14 +60,20 @@ public abstract class Weapon : MonoBehaviour
     [field: SerializeField]
     protected virtual int maxAttackCount { get; set; }
 
+    /// <summary> 공격 패턴 초기화되는 시간 공격하고 일정시간 지나면 초기화 </summary>
+    [field: SerializeField]
+    protected virtual float attackPatternInitTime { get; set; }
+
     [Space]
     public CooldownController SkillCoolDown;
 
-    [SerializeField]
+    [SerializeField, Tooltip("애니메이터 파라미터 이름")]
     private string attackTriggerName = "Attack";
 
-    [SerializeField]
+    [SerializeField, Tooltip("애니메이터 파라미터 이름")]
     private string attackPatternCountName = "AttackPatternCount";
+
+    protected CancellationTokenSource attackTaskCancelToken = new();
 
     /// <summary>
     /// 공격 애니메이션 끝났을 때 콜백
@@ -100,6 +109,11 @@ public abstract class Weapon : MonoBehaviour
 
     protected virtual async UniTask AttackAsync() { }
 
+    protected virtual async UniTaskVoid InitAttackPatternCount()
+    {
+
+    }
+
     public abstract void Skill();
 
     protected virtual async UniTaskVoid SkillAsync() { }
@@ -123,12 +137,13 @@ public abstract class Weapon : MonoBehaviour
     public void Destroy()
     {
         Destroy(gameObject);
-        Dictionary<int, int> da = new();
-        da.First();
     }
 
-    // 자식개체에 있는 WeaponChildColliderHandler 스크립트에서 호출
-    public void OnChildTriggerEnter2D(Collider2D other)
+    /// <summary>
+    /// 자식개체에 있는 WeaponChildColliderHandler 스크립트에서 호출
+    /// <see cref="WeaponChildColliderHandler.OnTriggerEnter2D(Collider2D)"/>
+    /// </summary>
+    public virtual void OnChildTriggerEnter2D(Collider2D other)
     {
         print("무기 공격");
     }

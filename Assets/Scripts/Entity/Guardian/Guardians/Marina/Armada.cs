@@ -31,6 +31,14 @@ public class Armada : Weapon
         SaveManager.SaveWeaponImage(spriteRenderer.sprite.texture, name);
     }
 
+    public override void Attack()
+    {
+        SetAttackAnimator(AttackPatternCount);
+        attackTaskCancelToken.Cancel();
+
+
+    }
+
     public override void Skill()
     {
         SkillAsync().Forget();
@@ -58,9 +66,5 @@ public class Armada : Weapon
 
             await UniTask.Delay((int)(skillAttackDelay * 1000));
         }
-    }
-
-    public override void Attack()
-    {
     }
 }

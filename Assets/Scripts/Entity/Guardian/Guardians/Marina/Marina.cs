@@ -37,7 +37,6 @@ public class Marina : Guardian, IGuardianAdditionalSkill
         Weapon.SetAttackAnimator(AttackPatternCount);
     }
 
-
     void IGuardianAdditionalSkill.AdditionalSkill()
     {
         IGuardianAdditionalSkill additionalSkill = this;
@@ -47,7 +46,6 @@ public class Marina : Guardian, IGuardianAdditionalSkill
 
     async UniTaskVoid IGuardianAdditionalSkill.AddtionalSkillAsync()
     {
-        // TODO : 닻 스크립트만들고 로직 이관하기
         // 닻 축 자식으로 닻이 있는 구조
         var anchorAxis = Instantiate(this.anchor, transform.position, Quaternion.identity, transform);
 
