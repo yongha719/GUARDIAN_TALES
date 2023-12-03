@@ -3,44 +3,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MarinaAnchor : MonoBehaviour
+namespace GUARDIANTALES
 {
-    private int damage;
-
-    public async UniTask AdditionalSkillAsync(int damage, float timeToRotateAnchor, float anchorRotationSpeed, float anchorRotationValue)
+    public class MarinaAnchor : MonoBehaviour
     {
-        var anchor = transform.GetChild(0);
+        private int damage;
 
-        var startTime = Time.time;
-
-        while (true)
+        public async UniTask AdditionalSkillAsync(int damage, float timeToRotateAnchor, float anchorRotationSpeed, float anchorRotationValue)
         {
-            var elapsedTime = Time.time - startTime;
+            var anchor = transform.GetChild(0);
 
-            if (elapsedTime >= timeToRotateAnchor)
-                break;
+            var startTime = Time.time;
 
-            // ÃàÀÌ µ¹¾Æ°¡°í ´éÀº ¿ŞÂÊÀ¸·Î ÀÌµ¿
-            transform.Rotate(0, 0, -anchorRotationSpeed);
-            anchor.Translate(Vector2.left * (anchorRotationValue * Time.deltaTime));
+            while (true)
+            {
+                var elapsedTime = Time.time - startTime;
 
-            await UniTask.NextFrame();
+                if (elapsedTime >= timeToRotateAnchor)
+                    break;
+
+                // ì¶•ì´ ëŒì•„ê°€ê³  ë‹»ì€ ì™¼ìª½ìœ¼ë¡œ ì´ë™
+                transform.Rotate(0, 0, -anchorRotationSpeed);
+                anchor.Translate(Vector2.left * (anchorRotationValue * Time.deltaTime));
+
+                await UniTask.NextFrame();
+            }
+
+            // TODO : ê°€ì¥ ê°€ê¹Œìš´ ì  ì°¾ì•„ì„œ ë‹»ìœ¼ë¡œ ê³µê²©
+            var nearestEnemy = GameManager.Instance.GetNearestEnemy();
+
+            transform.LookAt(nearestEnemy.transform);
+            this.Move(nearestEnemy.transform, 0.2f);
+
+            await UniTask.Delay(200);
         }
 
-        // TODO : °¡Àå °¡±î¿î Àû Ã£¾Æ¼­ ´éÀ¸·Î °ø°İ
-        var nearestEnemy = GameManager.Instance.GetNearestEnemy();
-
-        transform.LookAt(nearestEnemy.transform);
-        this.Move(nearestEnemy.transform, 0.2f);
-
-        await UniTask.Delay(200);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.TryGetComponent(out Enemy enemy))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            enemy.Hit(damage);
+            if (collision.TryGetComponent(out Enemy enemy))
+            {
+                enemy.Hit(damage);
+            }
         }
     }
 }

@@ -4,71 +4,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
-public class RunAndInteractionButton : MyButton, IRunAndInteractionButton
+namespace GUARDIANTALES
 {
-    private ButtonState buttonState = ButtonState.Run;
-
-    public ButtonState ButtonState
+    public class RunAndInteractionButton : MyButton, IRunAndInteractionButton
     {
-        get { return buttonState; }
-        set
+        private ButtonState buttonState = ButtonState.Run;
+
+        public ButtonState ButtonState
         {
-            buttonState = value;
+            get { return buttonState; }
+            set
+            {
+                buttonState = value;
+            }
         }
-    }
 
-    [Tooltip("현재 Button State가 Run일때")]
-    public event Action OnRunButtonDown = () => { };
+        [Tooltip("현재 Button State가 Run일때")]
+        public event Action OnRunButtonDown = () => { };
 
-    public event Action OnRunButtonUp = () => { };
+        public event Action OnRunButtonUp = () => { };
 
-    [Tooltip("현재 Button State가 Interaction일때")]
-    public event Action OnInteractionButtonDown = () => { };
+        [Tooltip("현재 Button State가 Interaction일때")]
+        public event Action OnInteractionButtonDown = () => { };
 
-    public event Action OnInteractionButtonUp = () => { };
+        public event Action OnInteractionButtonUp = () => { };
 
-    
-    protected override void Start()
-    {
-        base.Start();
 
-        OnRunButtonDown += () =>
-        {            
-            GameManager.Instance.GuardianData.SpeedData.Value = 12;
-        };
-        
-        OnRunButtonUp += () =>
-        {            
-            GameManager.Instance.GuardianData.SpeedData.Value = 5;
-        };
-    }
-    
-    public override void OnPointerDown(PointerEventData eventData)
-    {
-        base.OnPointerDown(eventData);
-        
-        if (ButtonState == ButtonState.Run)
+        protected override void Start()
         {
-            OnRunButtonDown();
+            base.Start();
+
+            OnRunButtonDown += () =>
+            {
+                GameManager.Instance.GuardianData.SpeedData.Value = 12;
+            };
+
+            OnRunButtonUp += () =>
+            {
+                GameManager.Instance.GuardianData.SpeedData.Value = 5;
+            };
         }
-        else if (ButtonState == ButtonState.Interaction)
-        {
-            OnInteractionButtonDown();
-        }
-    }
 
-    public override void OnPointerUp(PointerEventData eventData)
-    {
-        base.OnPointerUp(eventData);
-        
-        if (ButtonState == ButtonState.Run)
+        public override void OnPointerDown(PointerEventData eventData)
         {
-            OnRunButtonUp();
+            base.OnPointerDown(eventData);
+
+            if (ButtonState == ButtonState.Run)
+            {
+                OnRunButtonDown();
+            }
+            else if (ButtonState == ButtonState.Interaction)
+            {
+                OnInteractionButtonDown();
+            }
         }
-        else if (ButtonState == ButtonState.Interaction)
+
+        public override void OnPointerUp(PointerEventData eventData)
         {
-            OnInteractionButtonUp();
+            base.OnPointerUp(eventData);
+
+            if (ButtonState == ButtonState.Run)
+            {
+                OnRunButtonUp();
+            }
+            else if (ButtonState == ButtonState.Interaction)
+            {
+                OnInteractionButtonUp();
+            }
         }
     }
 }

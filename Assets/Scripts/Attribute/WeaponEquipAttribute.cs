@@ -1,13 +1,17 @@
 using UnityEngine;
 
-[System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = true, Inherited = false)]
-public class WeaponEquipAttribute : PropertyAttribute
+
+namespace GUARDIANTALES
 {
-
-    public WeaponType[] WeaponTypes { get; set; }
-
-    public WeaponEquipAttribute(params WeaponType[] weaponTypes)
+    [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = true, Inherited = false)]
+    public class WeaponEquipAttribute : PropertyAttribute
     {
-        WeaponTypes = weaponTypes;
+
+        public WeaponType[] WeaponTypes { get; set; }
+
+        public WeaponEquipAttribute(params WeaponType[] weaponTypes)
+        {
+            WeaponTypes = weaponTypes;
+        }
     }
 }

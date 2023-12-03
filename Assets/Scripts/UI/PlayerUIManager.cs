@@ -1,49 +1,52 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class PlayerUIManager : MonoBehaviour
+namespace GUARDIANTALES
 {
-    [Space]
-    [Tooltip("달리기 / 상호작용 버튼")]
-    private IRunAndInteractionButton RunAndInteractionButton;
-
-    [SerializeField]
-    private MyButton attackButton;
-
-    [SerializeField]
-    private MyButton skillButton;
-
-    [SerializeField]
-    private MyButton additionalSkillButton;
-
-    private Guardian guardian;
-
-    private void Start()
+    public class PlayerUIManager : MonoBehaviour
     {
-        RunAndInteractionButton = FindObjectOfType<RunAndInteractionButton>();
+        [Space]
+        [Tooltip("달리기 / 상호작용 버튼")]
+        private IRunAndInteractionButton RunAndInteractionButton;
 
-        guardian = GameManager.Instance.GuardianData.Guardian;
+        [SerializeField]
+        private MyButton attackButton;
 
-        attackButton.OnPressed += () =>
+        [SerializeField]
+        private MyButton skillButton;
+
+        [SerializeField]
+        private MyButton additionalSkillButton;
+
+        private Guardian guardian;
+
+        private void Start()
         {
-            guardian.TryAttack();
-        };
+            RunAndInteractionButton = FindObjectOfType<RunAndInteractionButton>();
 
-        skillButton.OnPressed += () =>
-        {
-            if (guardian.TryUseSkill(out float coolTime))
+            guardian = GameManager.Instance.GuardianData.Guardian;
+
+            attackButton.OnPressed += () =>
             {
-                print("Use Skill!");
-            }
-        };
+                guardian.TryAttack();
+            };
 
-        additionalSkillButton.SetActive(guardian.HasAdditionalSkill);
-        additionalSkillButton.OnPressed += () =>
-        {
-            if (guardian.TryUseAdditionalSKill(out float coolTime))
+            skillButton.OnPressed += () =>
             {
-                print("Use Additional Skill!");
-            }
-        };
+                if (guardian.TryUseSkill(out float coolTime))
+                {
+                    print("Use Skill!");
+                }
+            };
+
+            additionalSkillButton.SetActive(guardian.HasAdditionalSkill);
+            additionalSkillButton.OnPressed += () =>
+            {
+                if (guardian.TryUseAdditionalSKill(out float coolTime))
+                {
+                    print("Use Additional Skill!");
+                }
+            };
+        }
     }
 }

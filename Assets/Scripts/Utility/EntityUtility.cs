@@ -1,6 +1,8 @@
+using GUARDIANTALES;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
 
 public static class EntityUtility
 {
@@ -10,7 +12,7 @@ public static class EntityUtility
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Init()
     {
-        for (var i = 0; i < (int)ElementalAttribute.MAX; i++)
+        for (int i = 0; i < (int)ElementalAttribute.MAX; i++)
             elementalDamageMultiplier[(ElementalAttribute)i] = new(2);
 
 

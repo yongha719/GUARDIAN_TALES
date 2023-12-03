@@ -3,17 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponChildColliderHandler : MonoBehaviour
+namespace GUARDIANTALES
 {
-    private Weapon weapon;
-    
-    void Start()
+    public class WeaponChildColliderHandler : MonoBehaviour
     {
-        weapon = GetComponentInParent<Weapon>();
-    }
+        private Weapon weapon;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        weapon.OnChildTriggerEnter2D(other);
+        void Start()
+        {
+            weapon = GetComponentInParent<Weapon>();
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            weapon.OnChildTriggerEnter2D(other);
+        }
     }
 }

@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-// Editor È¯°æ¿¡¼­ Guardian ÀÎ½ºÆåÅÍ¿¡ WeaponÀ» ÇÒ´çÇÒ ¶§ Weapon TypeÀÌ ´Ù¸£¸é ÀåÂøÇÏÁö ¸øÇÏ°Ô ÇÔ
+// Editor í™˜ê²½ì—ì„œ Guardian ì¸ìŠ¤íŽ™í„°ì— Weaponì„ í• ë‹¹í•  ë•Œ Weapon Typeì´ ë‹¤ë¥´ë©´ ìž¥ì°©í•˜ì§€ ëª»í•˜ê²Œ í•¨
 
-
-[CustomPropertyDrawer(typeof(WeaponEquipAttribute), true)]
-public class WeaponEquipAttributeDrawer : PropertyDrawer
+namespace GUARDIANTALES
 {
-    private WeaponEquipAttribute Atr => attribute as WeaponEquipAttribute;
-
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    [CustomPropertyDrawer(typeof(WeaponEquipAttribute), true)]
+    public class WeaponEquipAttributeDrawer : PropertyDrawer
     {
-        EditorGUI.PropertyField(position, property, label, true);
+        private WeaponEquipAttribute Atr => attribute as WeaponEquipAttribute;
 
-        if (property.objectReferenceValue != null)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            var weapon = property.objectReferenceValue as Weapon;
+            EditorGUI.PropertyField(position, property, label, true);
 
-            foreach (var weaponType in Atr.WeaponTypes)
+            if (property.objectReferenceValue != null)
             {
-                if (weaponType != weapon.WeaponType)
-                    property.objectReferenceValue = null;
-            }
-        }
+                var weapon = property.objectReferenceValue as Weapon;
 
+                foreach (var weaponType in Atr.WeaponTypes)
+                {
+                    if (weaponType != weapon.WeaponType)
+                        property.objectReferenceValue = null;
+                }
+            }
+
+        }
     }
 }

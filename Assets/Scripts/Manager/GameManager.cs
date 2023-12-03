@@ -6,56 +6,60 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class GameManager : Singleton<GameManager>
+namespace GUARDIANTALES
 {
-    protected override bool DontDestroy => true;
 
-    public GuardianData GuardianData;
-
-    public List<Enemy> Enemies = new();
-
-    private List<Guardian> guardianParty = new();
-
-    public IList<Guardian> GuardianParty => guardianParty;
-
-    protected override void Awake()
+    public class GameManager : Singleton<GameManager>
     {
-        base.Awake();
+        protected override bool DontDestroy => true;
 
-        GuardianData.Init();
-    }
+        public GuardianData GuardianData;
 
-    private void Start()
-    {
-        var @int = 10;
-        @int.eq();
+        public List<Enemy> Enemies = new();
 
-        print(@int);
-    }
+        private List<Guardian> guardianParty = new();
 
+        public IList<Guardian> GuardianParty => guardianParty;
 
-    public Enemy GetNearestEnemy()
-    {
-        if (Enemies.Count == 0)
-            return null;
-
-        return Enemies.OrderBy(enemy => Vector3.Distance(GuardianData.Guardian.transform.position, enemy.transform.position)).First();
-    }
-
-    public Vector3 GetNearestEnemyPosition()
-    {
-        return GetNearestEnemy().transform.position;
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
+        protected override void Awake()
         {
-            string json = JsonUtility.ToJson(GuardianData);
-            string path = Path.Combine(Application.persistentDataPath, "data.json");
+            base.Awake();
 
-            File.WriteAllText(path, json);
-            print("저장 성공");
+            GuardianData.Init();
+        }
+
+        private void Start()
+        {
+            var @int = 10;
+            @int.eq();
+
+            print(@int);
+        }
+
+
+        public Enemy GetNearestEnemy()
+        {
+            if (Enemies.Count == 0)
+                return null;
+
+            return Enemies.OrderBy(enemy => Vector3.Distance(GuardianData.Guardian.transform.position, enemy.transform.position)).First();
+        }
+
+        public Vector3 GetNearestEnemyPosition()
+        {
+            return GetNearestEnemy().transform.position;
+        }
+
+        public void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                string json = JsonUtility.ToJson(GuardianData);
+                string path = Path.Combine(Application.persistentDataPath, "data.json");
+
+                File.WriteAllText(path, json);
+                print("저장 성공");
+            }
         }
     }
 }

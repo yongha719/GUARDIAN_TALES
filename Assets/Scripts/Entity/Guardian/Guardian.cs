@@ -4,191 +4,193 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public abstract class Guardian : Entity
+namespace GUARDIANTALES
 {
-    public override EntityData Data
+    public abstract class Guardian : Entity
     {
-        get => guardianData;
-        set => guardianData = (GuardianData)value;
-    }
-
-    [Header(nameof(Guardian))]
-    [SerializeField]
-    protected GuardianData guardianData;
-
-    [SerializeField, WeaponEquip(WeaponType.OneHandedSword)]
-    private Weapon weapon;
-
-    public Weapon Weapon
-    {
-        get => weapon;
-
-        set
+        public override EntityData Data
         {
-            if (WeaponType == value.WeaponType)
+            get => guardianData;
+            set => guardianData = (GuardianData)value;
+        }
+
+        [Header(nameof(Guardian))]
+        [SerializeField]
+        protected GuardianData guardianData;
+
+        [SerializeField, WeaponEquip(WeaponType.OneHandedSword)]
+        private Weapon weapon;
+
+        public Weapon Weapon
+        {
+            get => weapon;
+
+            set
             {
-                weapon = value;
-            }
-            else
-            {
-                Debug.Log("장착 불가능");
+                if (WeaponType == value.WeaponType)
+                {
+                    weapon = value;
+                }
+                else
+                {
+                    Debug.Log("장착 불가능");
+                }
             }
         }
-    }
 
-    public WeaponType WeaponType;
+        public WeaponType WeaponType;
 
-    [Tooltip("공격할 때 자동 이동가능한 거리")]
-    public float AutoMovableDistanceAttacking;
+        [Tooltip("공격할 때 자동 이동가능한 거리")]
+        public float AutoMovableDistanceAttacking;
 
-    /// <summary> 근접 유닛인지 </summary>
-    public virtual bool IsProximityUnit { get; }
+        /// <summary> 근접 유닛인지 </summary>
+        public virtual bool IsProximityUnit { get; }
 
-    [Tooltip("몇번째 공격인지 나타냄")]
-    protected int attackPatternCount;
+        [Tooltip("몇번째 공격인지 나타냄")]
+        protected int attackPatternCount;
 
-    protected int AttackPatternCount
-    {
-        get => attackPatternCount;
-
-        set
+        protected int AttackPatternCount
         {
-            attackPatternCount = value;
-            Utility.WrapValue(ref attackPatternCount,
-                minAttackCount, maxAttackCount);
-            print(attackPatternCount);
-        }
-    }
+            get => attackPatternCount;
 
-    protected virtual int minAttackCount { get; }
-
-    protected virtual int maxAttackCount { get; }
-
-    public bool HasAdditionalSkill => this is IGuardianAdditionalSkill;
-
-    [Space]
-    [Header("CoolDown Controllers")]
-    public CooldownController AttackCoolDown = new();
-
-    public CooldownController AdditionalSkillCoolDown = new();
-
-    #region Unity Components
-
-    protected SpriteRenderer spriteRenderer;
-
-    #endregion
-
-    protected override void Start()
-    {
-        guardianData.InitGuardian(this);
-
-        Weapon.Equip(this);
-
-        AttackCoolDown.InitCoolTime();
-        AdditionalSkillCoolDown.InitCoolTime();
-
-        base.Start();
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        AttackCoolDown.OnCoolDownReady += () =>
-        {
-            AttackPatternCount++;
-            Attack();
-        };
-
-        if (this is IGuardianAdditionalSkill additionalSkill)
-        {
-            AdditionalSkillCoolDown.OnCoolDownReady += () =>
+            set
             {
-                additionalSkill.AdditionalSkill();
+                attackPatternCount = value;
+                Utility.WrapValue(ref attackPatternCount,
+                    minAttackCount, maxAttackCount);
+                print(attackPatternCount);
+            }
+        }
+
+        protected virtual int minAttackCount { get; }
+
+        protected virtual int maxAttackCount { get; }
+
+        public bool HasAdditionalSkill => this is IGuardianAdditionalSkill;
+
+        [Space]
+        [Header("CoolDown Controllers")]
+        public CooldownController AttackCoolDown = new();
+
+        public CooldownController AdditionalSkillCoolDown = new();
+
+        #region Unity Components
+
+        protected SpriteRenderer spriteRenderer;
+
+        #endregion
+
+        protected override void Start()
+        {
+            guardianData.InitGuardian(this);
+
+            Weapon.Equip(this);
+
+            AttackCoolDown.InitCoolTime();
+            AdditionalSkillCoolDown.InitCoolTime();
+
+            base.Start();
+
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
+            AttackCoolDown.OnCoolDownReady += () =>
+            {
+                AttackPatternCount++;
+                Attack();
             };
-        }
-    }
 
-    protected virtual void FixedUpdate()
-    {
-        // Move
-        var dir = InputManager.Instance.Dir;
-
-        //transform.Translate(dir * (guardianData.SpeedData * Time.deltaTime));
-
-        bool isLeft = dir.x < 0;
-
-        spriteRenderer.flipX = isLeft;
-        Weapon.FlipX(isLeft);
-    }
-
-    public void WeaponEquip(Weapon weapon)
-    {
-        if (Weapon != null)
-        {
-            Weapon.UnEquip();
+            if (this is IGuardianAdditionalSkill additionalSkill)
+            {
+                AdditionalSkillCoolDown.OnCoolDownReady += () =>
+                {
+                    additionalSkill.AdditionalSkill();
+                };
+            }
         }
 
-        Weapon = weapon;
-        Weapon.Equip(this);
-    }
-
-    public void WeaponUnEquip()
-    {
-        Destroy(Weapon.gameObject);
-
-        Weapon = null;
-    }
-
-
-    protected abstract void Attack();
-
-    public bool TryAttack()
-    {
-        return AttackCoolDown.TryCoolDownAction();
-    }
-
-
-    public bool TryUseSkill(out float coolTime)
-    {
-        coolTime = Weapon.SkillCoolDown.Delay;
-
-        return Weapon.TryUseSkill();
-    }
-
-    public bool TryUseAdditionalSKill(out float coolTime)
-    {
-        coolTime = AdditionalSkillCoolDown.Delay;
-
-        return AdditionalSkillCoolDown.TryCoolDownAction();
-    }
-
-    /// <summary>
-    /// 근접 공격 유닛들이 공격할 때 가까운 거리에 있는 적에게 이동함
-    /// <br></br>
-    /// 두가지 이동 방법
-    /// <br></br>
-    /// 1. 일정 거리내에 적이 있으면 바로 적앞까지 전진 
-    /// <br></br>
-    /// 2. 거리가 멀면 적 쪽으로 조금씩 전진
-    /// 
-    /// </summary>
-    protected void MoveToNearestEnemy()
-    {
-        var nearestEnemy = GameManager.Instance.GetNearestEnemyPosition();
-
-        var enemyDistance = Vector3.Distance(transform.position, nearestEnemy);
-
-        if (enemyDistance < 3)
+        protected virtual void FixedUpdate()
         {
-            Move(nearestEnemy, 0.2f);
+            // Move
+            var dir = InputManager.Instance.Dir;
+
+            //transform.Translate(dir * (guardianData.SpeedData * Time.deltaTime));
+
+            bool isLeft = dir.x < 0;
+
+            spriteRenderer.flipX = isLeft;
+            Weapon.FlipX(isLeft);
         }
-    }
 
-    protected virtual void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.TryGetComponent(out Enemy enemy))
+        public void WeaponEquip(Weapon weapon)
         {
-            // 충돌 데미지라 약함
-            Hit(enemy);
+            if (Weapon != null)
+            {
+                Weapon.UnEquip();
+            }
+
+            Weapon = weapon;
+            Weapon.Equip(this);
+        }
+
+        public void WeaponUnEquip()
+        {
+            Destroy(Weapon.gameObject);
+
+            Weapon = null;
+        }
+
+
+        protected abstract void Attack();
+
+        public bool TryAttack()
+        {
+            return AttackCoolDown.TryCoolDownAction();
+        }
+
+
+        public bool TryUseSkill(out float coolTime)
+        {
+            coolTime = Weapon.SkillCoolDown.Delay;
+
+            return Weapon.TryUseSkill();
+        }
+
+        public bool TryUseAdditionalSKill(out float coolTime)
+        {
+            coolTime = AdditionalSkillCoolDown.Delay;
+
+            return AdditionalSkillCoolDown.TryCoolDownAction();
+        }
+
+        /// <summary>
+        /// 근접 공격 유닛들이 공격할 때 가까운 거리에 있는 적에게 이동함
+        /// <br></br>
+        /// 두가지 이동 방법
+        /// <br></br>
+        /// 1. 일정 거리내에 적이 있으면 바로 적앞까지 전진 
+        /// <br></br>
+        /// 2. 거리가 멀면 적 쪽으로 조금씩 전진
+        /// 
+        /// </summary>
+        protected void MoveToNearestEnemy()
+        {
+            var nearestEnemy = GameManager.Instance.GetNearestEnemyPosition();
+
+            var enemyDistance = Vector3.Distance(transform.position, nearestEnemy);
+
+            if (enemyDistance < 3)
+            {
+                Move(nearestEnemy, 0.2f);
+            }
+        }
+
+        protected virtual void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out Enemy enemy))
+            {
+                // 충돌 데미지라 약함
+                Hit(enemy);
+            }
         }
     }
 }
